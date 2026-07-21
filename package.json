@@ -1,0 +1,21 @@
+{
+  "name": "playwright-ui-api-framework",
+  "version": "1.0.0",
+  "description": "An enterprise-grade UI & API automation framework built using Playwright and TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilavan09/playwright-ui-api-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nilavan09/playwright-ui-api-framework/issues"
+  },
+  "homepage": "https://github.com/nilavan09/playwright-ui-api-framework#readme"
+}
