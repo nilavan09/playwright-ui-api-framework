@@ -22,3 +22,9 @@ logs/
 
 # VS Code
 .vscode/
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
