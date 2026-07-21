@@ -36,7 +36,7 @@ This project is being built from scratch following enterprise automation framewo
 
 ---
 
-## 📖 Learning Goal
+## 📖 Learning Goal  ..
 
 Build a scalable enterprise automation framework while documenting every step of the development process.
 

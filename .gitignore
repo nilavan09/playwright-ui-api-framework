@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Playwright Reports
+playwright-report/
+test-results/
+
+# Screenshots
+screenshots/
+
+# Videos
+videos/
+
+# Traces
+traces/
+
+# Logs
+logs/
+
+# VS Code
+.vscode/
