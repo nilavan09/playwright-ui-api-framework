@@ -28,3 +28,7 @@ logs/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Authentication storage
+auth/*.json
+
