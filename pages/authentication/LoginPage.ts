@@ -1,0 +1,66 @@
+import { expect, Locator, Page } from '@playwright/test';
+
+export class LoginPage {
+    private readonly page: Page;
+    private readonly emailInput: Locator;
+    private readonly passwordInput: Locator;
+    private readonly loginButton: Locator;
+
+    constructor(page: Page){
+        this.page = page;
+        this.emailInput = page.locator('[data-test="form__email-input"]');
+        this.passwordInput = page.locator('[data-test="form__password-input"]');
+        this.loginButton = page.locator('[data-test="login-submit"]');
+    }
+    open() {
+        return this.page.goto(process.env.BASE_URL + '/login');
+    }
+
+    enterEmail(email: string) {
+        return this.emailInput.fill(email);
+    }
+
+    enterPassword(password: string) {
+        return this.passwordInput.fill(password);
+    }
+    clickLogin() {
+        return this.loginButton.click();
+    }
+
+
+}
+
+
+
+// import { expect, Locator, Page } from '@playwright/test';
+
+// export class LoginPage {
+//   readonly page: Page;
+
+//   readonly emailInput: Locator;
+//   readonly passwordInput: Locator;
+//   readonly loginButton: Locator;
+
+//   constructor(page: Page) {
+//     this.page = page;
+//     this.emailInput = page.locator('[data-test="form__email-input"]');
+//     this.passwordInput = page.locator('[data-test="form__password-input"]');
+//     this.loginButton = page.locator('[data-test="login-submit"]');
+//   }
+
+//   async navigate(path = '/login') {
+//     await this.page.goto(process.env.BASE_URL + path);
+//   }
+
+//   async assertLoginFormVisible() {
+//     await expect(this.emailInput).toBeVisible();
+//     await expect(this.passwordInput).toBeVisible();
+//     await expect(this.loginButton).toBeVisible();
+//   }
+
+//   async login(email: string, password: string) {
+//     await this.emailInput.fill(process.env.EMAIL!);
+//     await this.passwordInput.fill(process.env.PASSWORD!);
+//     await this.loginButton.click();
+//   }
+// }
