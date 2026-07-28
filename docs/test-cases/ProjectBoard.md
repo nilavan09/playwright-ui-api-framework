@@ -3,32 +3,12 @@
 ## Feature
 Verify Project Board page loads correctly.
 
-### Test Scenarios
+### Test Cases
 
-TC_001
-Verify Project Board page loads successfully.
+TC_001_Verify Project Board page loads successfully.
 
 Expected:
 - Project name is displayed.
 - Board view is selected.
+- All 3 todo , inprogress and complete column is displayed.
 
---------------------------------
-
-TC_002
-Verify status columns are displayed.
-
-Expected:
-- TO DO
-- IN PROGRESS
-- COMPLETE
-
---------------------------------
-
-TC_003
-Verify toolbar options are visible.
-
-Expected:
-- Search
-- Filter
-- Sort
-- Customize

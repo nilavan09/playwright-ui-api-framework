@@ -45,15 +45,11 @@ setup('authenticate clickup user', async ({ page }) => {
 
 
     // Wait until login is completed
-    await expect(
-            page.getByText("Pozhilnilavan G's Workspace")
-        ).toBeVisible();
+    await expect(page.getByText("Pozhilnilavan G's Workspace")).toBeVisible();
 
 
     // Save logged-in session
-    await page.context().storageState({
-        path: authFile
-    });
+    await page.context().storageState({path: authFile});
 
 });
 
