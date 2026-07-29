@@ -71,6 +71,18 @@ export class BasePage {
         await locator.press(key);
     }
 
+     /**
+     * Presses a keyboard key on the specified element.
+     *
+     * @param locator - Element locator.
+     * @param key - Keyboard keys to press.
+     */
+    async pressSequentially(locator: Locator, key: string): Promise<void> {
+        await locator.pressSequentially(key);
+    }
+
+
+
     /**
      * Moves the mouse pointer over the specified element.
      *
@@ -113,6 +125,23 @@ export class BasePage {
     // Assertions
 
     /**
+     * 
+     * @param locator - Elemrnt Locator
+     * @param value  - String value that we pass.
+     */
+    async expectValue(locator: Locator, value: string): Promise<void> {
+        await expect(locator).toHaveValue(value);
+   }
+
+   /**
+     * 
+     * @param locator - Elemrnt Locator
+     * @param value  - String value that we pass.
+     */
+    async expectToHaveText(locator: Locator, value: string): Promise<void> {
+        await expect(locator).toHaveText(value);
+   }
+    /**
      * Verifies that an element is visible.
      *
      * @param locator - Element locator.
@@ -129,6 +158,16 @@ export class BasePage {
      */
     async isVisible(locator: Locator): Promise<boolean> {
         return await locator.isVisible();
+    }
+
+    /**
+     * 
+     * @param locator -Element Locator
+     * @returns True if the element is visible; otherwise false.
+     */
+
+    async toBeEnabled(locator: Locator): Promise<void> {
+        await expect(locator).toBeEnabled();
     }
 
     // Waits
