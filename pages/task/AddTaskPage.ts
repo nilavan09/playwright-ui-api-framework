@@ -12,6 +12,8 @@ export class AddTaskPage extends BasePage {
     private readonly createTaskButton: Locator;
     private readonly closeButton: Locator;
     private readonly descriptionPlaceholder: Locator;
+    private readonly priorityDropdown: Locator;
+    private readonly highPriorityOption: Locator;
 
 
 
@@ -29,6 +31,8 @@ export class AddTaskPage extends BasePage {
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
         this.closeButton = page.locator('[data-test="modal-close-btn"]');
         this.descriptionPlaceholder = page.locator('.ql-block');
+        this.priorityDropdown = page.locator('[data-test="priorities-list__dropdown-toggle"]').nth(4);
+        this.highPriorityOption = page.getByRole('button', { name: 'Normal' });
     }
 
     async verifyAddTaskDialog() {
@@ -59,4 +63,13 @@ export class AddTaskPage extends BasePage {
     async verifyDescription(description: string) {
         await this.expectToHaveText(this.descriptionPlaceholder , description);
     }
+
+    async selectNormalPriority() {
+        await this.click(this.priorityDropdown);
+        await this.click(this.highPriorityOption);
+    }
+
+    async verifyNormalPrioritySelected() {
+        await this.expectToHaveText(this.priorityDropdown , " Normal priority");
+    }   
 }

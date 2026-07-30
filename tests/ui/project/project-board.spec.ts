@@ -64,3 +64,16 @@ test('TC_006_Verify user can enter task description', async ({ page }) => {
     await addTaskPage.fillDescription(taskDescription);
     await addTaskPage.verifyDescription(taskDescription);
 });
+
+test('TC_007_Verify user can enter select Priority', async ({ page }) => {
+
+    const projectBoardPage = new ProjectBoardPage(page);
+    const addTaskPage = new AddTaskPage(page);
+
+    await projectBoardPage.navigate('/');
+    await projectBoardPage.openBoardView();
+    await projectBoardPage.clickAddTask();
+
+    await addTaskPage.selectNormalPriority();
+    await addTaskPage.verifyNormalPrioritySelected();
+});

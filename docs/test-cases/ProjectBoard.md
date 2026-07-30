@@ -1,8 +1,5 @@
 # Project Board
 
-## Feature
-Verify Project Board page loads correctly.
-
 ### Test Cases
 
 TC_001_Verify Project Board page loads successfully.
@@ -85,3 +82,25 @@ Steps
 Expected Result
 
 - description field should accepct vaule and display.
+
+TC_007_Verify user can enter select Priority
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- opened task dialog
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Click Create Task.
+- Click on priority dropdown.
+- Select normal priority.
+
+Expected Result
+
+- Priority dropdown is opened.
+- prioriity selected.
+- Priority dropdown is displayed selected one.
