@@ -104,3 +104,75 @@ Expected Result
 - Priority dropdown is opened.
 - prioriity selected.
 - Priority dropdown is displayed selected one.
+
+TC_008_Verify user can select Due Date
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- opened task dialog
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Click Create Task.
+- Click on due date picker.
+- Select "Tomorrow" as due date.
+
+Expected Result
+
+- Due date picker is opened.
+- Due date selected.
+- Due date field displays "Tomorrow".
+
+TC_009_Verify user can select Assignee
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- opened task dialog
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Click Create Task.
+- Click on assignee selector.
+- Select an assignee from the list.
+
+Expected Result
+
+- Assignee selector is opened.
+- Assignee selected.
+- Assignee field displays selected user's initial "R".
+
+TC_010_Verify user can create a task and appears on Board
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- opened task dialog
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Click Create Task.
+- Enter task name.
+- Enter task description.
+- Select priority.
+- Select due date.
+- Select assignee.
+- Click Create Task button.
+
+Expected Result
+
+- Task name is entered correctly.
+- Task description is entered correctly.
+- Priority, due date, and assignee are selected correctly.
+- Task is created successfully.
+- Created task appears on the Board view.
