@@ -1,5 +1,6 @@
 import {Page, Locator} from "@playwright/test";
 import { BasePage } from "@pages/base/BasePage";
+import { taskData } from "@data/taskData";
 
 export class AddTaskPage extends BasePage {
     // Locators
@@ -79,7 +80,7 @@ export class AddTaskPage extends BasePage {
     }
 
     async verifyNormalPrioritySelected() {
-        await this.expectToHaveText(this.priorityDropdown , " Normal priority");
+        await this.expectToHaveText(this.priorityDropdown , taskData.priority);
     }   
 
     async selectDueDate() {
@@ -88,7 +89,7 @@ export class AddTaskPage extends BasePage {
     }
 
     async verifyDueDateSelected() {
-        await this.expectToHaveText(this.DueDatePicker , "Tomorrow");
+        await this.expectToHaveText(this.DueDatePicker , taskData.dueDate);
     }
 
     async selectAssignee() {

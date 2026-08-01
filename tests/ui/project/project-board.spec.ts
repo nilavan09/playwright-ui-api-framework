@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import {ProjectBoardPage} from '@pages/project/ProjectBoardPage';
 import { AddTaskPage } from '@pages/task/AddTaskPage';
+import { taskData } from '@data/taskData';
 
 
 let projectBoardPage: ProjectBoardPage;
@@ -61,12 +62,12 @@ test('TC_006_Verify user can enter task description', async ({ page }) => {
 
     const projectBoardPage = new ProjectBoardPage(page);
     const addTaskPage = new AddTaskPage(page);
-    const taskDescription = "This is a demo task description for TC_006";
+    
 
     await projectBoardPage.clickAddTask();
 
-    await addTaskPage.fillDescription(taskDescription);
-    await addTaskPage.verifyDescription(taskDescription);
+    await addTaskPage.fillDescription(taskData.taskDescription);
+    await addTaskPage.verifyDescription(taskData.taskDescription);
 });
 
 test('TC_007_Verify user can enter select Priority', async ({ page }) => {
@@ -99,10 +100,10 @@ test('TC_009_Verify user can select Assignee', async ({ page }) => {
     await projectBoardPage.clickAddTask();  
 
     await addTaskPage.selectAssignee();
-    await addTaskPage.verifyAssigneeSelected("R");
+    await addTaskPage.verifyAssigneeSelected(taskData.assignee);
 });
 
-    test('TC_010_Verify user can create a task and appears on Board', async ({ page }) => {
+test('TC_010_Verify user can create a task and appears on Board', async ({ page }) => {
 
     const projectBoardPage = new ProjectBoardPage(page);
     const addTaskPage = new AddTaskPage(page);
