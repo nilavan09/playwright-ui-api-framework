@@ -80,7 +80,7 @@ export class AddTaskPage extends BasePage {
     }
 
     async verifyNormalPrioritySelected() {
-        await this.expectToHaveText(this.priorityDropdown , taskData.priority);
+        await this.expectToHaveText(this.priorityDropdown , taskData.selectedPriority);
     }   
 
     async selectDueDate() {
@@ -102,16 +102,16 @@ export class AddTaskPage extends BasePage {
     }
 
     async createTask() {
-        await this.fillTaskName("Sample Task");
-        await this.verifyTaskName("Sample Task");
-        await this.fillDescription("This is a sample task description");
-        await this.verifyDescription("This is a sample task description");
+        await this.fillTaskName(taskData.taskName);
+        await this.verifyTaskName(taskData.taskName);
+        await this.fillDescription(taskData.taskDescription);
+        await this.verifyDescription(taskData.taskDescription);
         await this.selectNormalPriority();
         await this.verifyNormalPrioritySelected();
         await this.selectDueDate();
         await this.verifyDueDateSelected();
         await this.selectAssignee();
-        await this.verifyAssigneeSelected("R");
+        await this.verifyAssigneeSelected(taskData.assignee);
         await this.click(this.createTaskButton);
     }
 
