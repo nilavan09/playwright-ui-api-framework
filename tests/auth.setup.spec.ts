@@ -28,6 +28,7 @@
 
 import { test as setup, expect } from '@playwright/test';
 import { LoginPage } from '../pages/authentication/LoginPage';
+import { loginData } from '@data/loginData';
 
 const authFile = 'auth/clickup.json';
 
@@ -37,9 +38,9 @@ setup('authenticate clickup user', async ({ page }) => {
 
     await loginPage.open();
 
-    await loginPage.enterEmail(process.env.EMAIL!);
+    await loginPage.enterEmail(loginData.validUser.email);
 
-    await loginPage.enterPassword(process.env.PASSWORD!);
+    await loginPage.enterPassword(loginData.validUser.password);
 
     await loginPage.clickLogin();
 
