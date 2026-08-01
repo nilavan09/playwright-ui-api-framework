@@ -16,6 +16,7 @@ export class ProjectBoardPage extends BasePage {
     private readonly searchButton: Locator;
     private readonly customizeButton: Locator;
     private readonly addTaskButton: Locator;
+    private readonly createdTask: Locator;
 
 
     
@@ -36,6 +37,7 @@ export class ProjectBoardPage extends BasePage {
         this.searchButton = page.locator('.view-filter-search__toggle');
         this.addTaskButton = page.locator('[data-test="cu2-views-bar__create-menu-view-bar-collapsed"]');
         this.customizeButton = page.locator('[cutooltip="Customize your view settings"]');
+        this.createdTask = page.locator('[data-test^="board-group__task-list-item__"]').nth(3);
         
         
 
@@ -73,6 +75,10 @@ export class ProjectBoardPage extends BasePage {
         await this.expectVisible(this.addTaskButton);
         await this.toBeEnabled(this.addTaskButton);
 
+    }
+
+    async verifyCreatedTask() {
+        await this.expectVisible(this.createdTask);
     }
 
 }

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import {ProjectBoardPage} from '@pages/project/ProjectBoardPage';
 import { AddTaskPage } from '@pages/task/AddTaskPage';
 
@@ -76,4 +76,43 @@ test('TC_007_Verify user can enter select Priority', async ({ page }) => {
 
     await addTaskPage.selectNormalPriority();
     await addTaskPage.verifyNormalPrioritySelected();
+});
+
+test('TC_008_Verify user can select Due Date', async ({ page }) => {
+
+    const projectBoardPage = new ProjectBoardPage(page);
+    const addTaskPage = new AddTaskPage(page);  
+    
+    await projectBoardPage.navigate('/');
+    await projectBoardPage.openBoardView();
+    await projectBoardPage.clickAddTask();  
+
+    await addTaskPage.selectDueDate();
+    await addTaskPage.verifyDueDateSelected();
+});
+
+test('TC_009_Verify user can select Assignee', async ({ page }) => {
+
+    const projectBoardPage = new ProjectBoardPage(page);
+    const addTaskPage = new AddTaskPage(page);
+
+    await projectBoardPage.navigate('/');
+    await projectBoardPage.openBoardView();
+    await projectBoardPage.clickAddTask();  
+
+    await addTaskPage.selectAssignee();
+    await addTaskPage.verifyAssigneeSelected("R");
+});
+
+    test('TC_010_Verify user can create a task and appears on Board', async ({ page }) => {
+
+    const projectBoardPage = new ProjectBoardPage(page);
+    const addTaskPage = new AddTaskPage(page);
+
+    await projectBoardPage.navigate('/');
+    await projectBoardPage.openBoardView();
+    await projectBoardPage.clickAddTask();  
+
+    await addTaskPage.createTask();
+    await projectBoardPage.verifyCreatedTask();
 });
