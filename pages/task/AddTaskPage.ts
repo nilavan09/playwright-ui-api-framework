@@ -2,6 +2,13 @@ import {Page, Locator} from "@playwright/test";
 import { BasePage } from "@pages/base/BasePage";
 import { taskData } from "@data/taskData";
 
+/**
+ * Page Object representing the Add Task dialog.
+ * 
+ * Encapsulates locators and actions for creating a task, including
+ * task name, description, priority, due date, and assignee selection.
+ */
+
 export class AddTaskPage extends BasePage {
     // Locators
     private readonly taskNameInput: Locator;
@@ -21,7 +28,10 @@ export class AddTaskPage extends BasePage {
     private readonly createTaskButton: Locator;
 
 
-
+    /**
+     * Initializes locators for the Add Task dialog.
+     * @param page - Playwright Page instance
+     */
 
     // Constructor
     constructor(page: Page) {
@@ -45,6 +55,7 @@ export class AddTaskPage extends BasePage {
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
     }
 
+    /** Verifies all key fields/buttons in the Add Task dialog are visible. */
     async verifyAddTaskDialog() {
         await this.expectVisible(this.taskNameInput);
         await this.expectVisible(this.descriptionInput);
@@ -56,51 +67,81 @@ export class AddTaskPage extends BasePage {
         await this.expectVisible(this.closeButton);
     }
 
+     /**
+     * Fills the task name input field.
+     * @param taskName - Name of the task to enter
+     */
     async fillTaskName(taskName: string) {
         await this.fill(this.taskNameInput, taskName);
     }
 
+    /**
+     * Verifies the task name input holds the expected value.
+     * @param taskName - Expected task name
+     */
     async verifyTaskName(taskName: string) {
 
         await this.expectValue(this.taskNameInput , taskName);
     }
 
+    /**
+     * Fills the task description field.
+     * @param description - Description text to enter
+     */
     async fillDescription(description: string) {
         await this.click(this.descriptionInput);
         await this.fill(this.descriptionPlaceholder, description);
     }   
 
+    /**
+     * Verifies the task description matches the expected text.
+     * @param description - Expected description text
+     */
     async verifyDescription(description: string) {
         await this.expectToHaveText(this.descriptionPlaceholder , description);
     }
 
+    /** Opens the priority dropdown and selects "Normal" priority. */
     async selectNormalPriority() {
         await this.click(this.priorityDropdown);
         await this.click(this.highPriorityOption);
     }
 
+    /** Verifies that "Normal" priority is selected and reflected in the dropdown. */
     async verifyNormalPrioritySelected() {
         await this.expectToHaveText(this.priorityDropdown , taskData.selectedPriority);
     }   
 
+     /** Opens the due date picker and selects "Tomorrow" as the due date. */
     async selectDueDate() {
         await this.click(this.DueDatePicker);
         await this.click(this.DueDatePickerDay);
     }
 
+    /** Verifies the due date field displays the expected selected date. */
     async verifyDueDateSelected() {
         await this.expectToHaveText(this.DueDatePicker , taskData.dueDate);
     }
 
+    /** Opens the assignee selector and selects the last available user in the list. */
     async selectAssignee() {
         await this.click(this.assigeeSelector);
         await this.click(this.assigneeOption);
     }
 
+    /**
+     * Verifies the assignee field displays the expected assignee.
+     * @param assigneeName - Expected assignee initial/name
+     */
     async verifyAssigneeSelected(assigneeName: string) {
         await this.expectToHaveText(this.assigeeSelector , assigneeName);
     }
 
+    /**
+     * End-to-end flow to create a task using centralized test data:
+     * fills task name, description, priority, due date, and assignee,
+     * verifying each step, then submits the task.
+     */
     async createTask() {
         await this.fillTaskName(taskData.taskName);
         await this.verifyTaskName(taskData.taskName);

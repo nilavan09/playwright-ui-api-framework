@@ -1,6 +1,13 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "@pages/base/BasePage";
 
+/**
+ * Page Object representing the Project Board page.
+ * 
+ * Encapsulates locators and actions related to the Board view,
+ * including status columns, toolbar options, and task creation entry point.
+ */
+
 export class ProjectBoardPage extends BasePage {
 
      // Locators
@@ -19,6 +26,10 @@ export class ProjectBoardPage extends BasePage {
     private readonly createdTask: Locator;
 
 
+    /**
+     * Initializes locators for the Project Board page.
+     * @param page - Playwright Page instance
+     */
     
     // Constructor
     constructor(page:Page){
@@ -43,25 +54,28 @@ export class ProjectBoardPage extends BasePage {
 
     }
     // Actions
+
+    /** Switches the current view to Board view. */
      async openBoardView(){
         await this.click(this.boardView);
     }
-    
+   /** Opens the Add Task dialog by clicking the Create Task button. */ 
     async clickAddTask() {
     await this.click(this.addTaskButton);
     }
 
     //Verifications
+    /** Verifies the project name/title is visible on the Board page. */
     async verifyProjectName(){
         await this.expectVisible(this.projectName);
     }
-
+    /** Verifies that To Do, In Progress, and Complete status columns are visible. */
     async verifyStatusColumns(){
         await this.expectVisible(this.todoColumn);
         await this.expectVisible(this.inProgressColumn);
         await this.expectVisible(this.completeColumn);
     }
-
+    /** Verifies that all toolbar options (Sort, Filter, Assignee, Task Filter, Search, Customize) are visible. */
     async verifyToolBarOptions(){
         await this.expectVisible(this.sortButton);
         await this.expectVisible(this.filterButton);
@@ -70,13 +84,13 @@ export class ProjectBoardPage extends BasePage {
         await this.expectVisible(this.searchButton);
         await this.expectVisible(this.customizeButton);
     }    
-
+    /** Verifies the Create Task button is visible and enabled. */
     async verifyCreateTaskButton() {
         await this.expectVisible(this.addTaskButton);
         await this.toBeEnabled(this.addTaskButton);
 
     }
-
+    /** Verifies that the newly created task is visible in the task list. */
     async verifyCreatedTask() {
         await this.expectVisible(this.createdTask);
     }
