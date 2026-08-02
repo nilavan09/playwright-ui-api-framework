@@ -1,7 +1,8 @@
-import { test } from '@playwright/test';
+import { test , expect } from '@fixtures/pagesFixture';
 import {ProjectBoardPage} from '@pages/project/ProjectBoardPage';
 import { AddTaskPage } from '@pages/task/AddTaskPage';
 import { taskData } from '@data/taskData';
+
 
 /**
  * Test Suite: Project Board - Task Creation
@@ -19,10 +20,7 @@ let addTaskPage: AddTaskPage;
  * so each test starts from a consistent state.
  */
 
-test.beforeEach(async ({ page }) => {
-    
-    projectBoardPage = new ProjectBoardPage(page);  
-    addTaskPage = new AddTaskPage(page);
+test.beforeEach(async ({ projectBoardPage }) => {
 
     await projectBoardPage.navigate('/');
     await projectBoardPage.openBoardView();
@@ -32,52 +30,38 @@ test.beforeEach(async ({ page }) => {
 // Project Board - Page Load & UI Verification
 
 
-test('TC_001_Verify Project Board page loads successfully',async ({page})=>{
-    const projectBoardPage = new ProjectBoardPage(page);
+test('TC_001_Verify Project Board page loads successfully',async ({projectBoardPage})=>{
     // Verify project title and default status columns (To Do / In Progress / Complete) render correctly.
     await projectBoardPage.verifyProjectName();
     await projectBoardPage.verifyStatusColumns();
 })
 
-test('TC_002_Verify Project Board toolbar is displayed',async ({page})=>{
-    const projectBoardPage = new ProjectBoardPage(page);
+test('TC_002_Verify Project Board toolbar is displayed',async ({projectBoardPage})=>{
     // Verify Sort, Filter, Assignee, Task Filter, Search, and Customize options are visible.
     await projectBoardPage.verifyToolBarOptions();
 })
 
-test('TC_003_Verify "Create Task" button is displayed',async ({page})=>{
-    const projectBoardPage = new ProjectBoardPage(page);
+test('TC_003_Verify "Create Task" button is displayed',async ({projectBoardPage})=>{
     // Verify Create Task button is visible and enabled.
     await projectBoardPage.verifyCreateTaskButton();
 })
 
 // Add Task Dialog - Field Level Verification
 
-test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async ({page})=>{
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
+test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async ({projectBoardPage,addTaskPage})=>{
     // Verify all required fields/buttons are present in the Add Task dialog.
     await projectBoardPage.clickAddTask();
     await addTaskPage.verifyAddTaskDialog();
 });
 
-test('TC_005_Verify user can enter task name', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
-    const taskName = "TC_005_Playwright Demo Task";
-
+test('TC_005_Verify user can enter task name', async ({ projectBoardPage,addTaskPage }) => {
     await projectBoardPage.clickAddTask();
     // Enter task name and verify it reflects correctly in the input field.
-    await addTaskPage.fillTaskName(taskName);
-    await addTaskPage.verifyTaskName(taskName);
+    await addTaskPage.fillTaskName(taskData.taskName);
+    await addTaskPage.verifyTaskName(taskData.taskName);
 });
 
-test('TC_006_Verify user can enter task description', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
-    
+test('TC_006_Verify user can enter task description', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.clickAddTask();
     // Enter task description using centralized test data and verify it's saved correctly.
@@ -85,10 +69,7 @@ test('TC_006_Verify user can enter task description', async ({ page }) => {
     await addTaskPage.verifyDescription(taskData.taskDescription);
 });
 
-test('TC_007_Verify user can enter select Priority', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
+test('TC_007_Verify user can enter select Priority', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.clickAddTask();
     // Select "Normal" priority from dropdown and verify selection is reflected.
@@ -96,10 +77,7 @@ test('TC_007_Verify user can enter select Priority', async ({ page }) => {
     await addTaskPage.verifyNormalPrioritySelected();
 });
 
-test('TC_008_Verify user can select Due Date', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);  
+test('TC_008_Verify user can select Due Date', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.clickAddTask();  
     // Select "Tomorrow" as due date and verify it's applied.
@@ -107,10 +85,7 @@ test('TC_008_Verify user can select Due Date', async ({ page }) => {
     await addTaskPage.verifyDueDateSelected();
 });
 
-test('TC_009_Verify user can select Assignee', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
+test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.clickAddTask();  
     // Select assignee from dropdown and verify correct user initial is displayed.
@@ -120,11 +95,8 @@ test('TC_009_Verify user can select Assignee', async ({ page }) => {
 
 // End-to-End Task Creation
 
-test('TC_010_Verify user can create a task and appears on Board', async ({ page }) => {
-
-    const projectBoardPage = new ProjectBoardPage(page);
-    const addTaskPage = new AddTaskPage(page);
-
+test('TC_010_Verify user can create a task and appears on Board', async ({projectBoardPage, addTaskPage  }) => {
+    
     await projectBoardPage.clickAddTask();  
     // Fill all task fields, submit, and verify the task appears on the Board view.
     await addTaskPage.createTask();
