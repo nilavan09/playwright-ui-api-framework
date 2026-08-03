@@ -95,4 +95,9 @@ export class ProjectBoardPage extends BasePage {
         await this.expectVisible(this.createdTask);
     }
 
+    /** Opens the newly created task by clicking on it. */
+    async openCreatedTask() {
+        await this.click(this.createdTask);
+    }
+
 }

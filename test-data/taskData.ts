@@ -1,8 +1,9 @@
 export const taskData = {
     taskName: "TC_010_Playwright Demo Task",
-    taskDescription: "This is a demo task description for TC_006",
+    taskDescription: "This is a demo task description for TC_010",
     priority: "Normal",
     selectedPriority:" Normal priority",
     dueDate: "Tomorrow",
-    assignee: "R"
+    assignee: "R",
+    status: "to do"
 };

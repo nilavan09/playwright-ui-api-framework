@@ -1,6 +1,4 @@
 import { test , expect } from '@fixtures/pagesFixture';
-import {ProjectBoardPage} from '@pages/project/ProjectBoardPage';
-import { AddTaskPage } from '@pages/task/AddTaskPage';
 import { taskData } from '@data/taskData';
 
 
@@ -10,9 +8,6 @@ import { taskData } from '@data/taskData';
  * Covers verification of the Project Board page, its toolbar,
  * the Add Task dialog, and end-to-end task creation flow.
  */
-
-let projectBoardPage: ProjectBoardPage;
-let addTaskPage: AddTaskPage;
 
 /**
  * Runs before every test.
