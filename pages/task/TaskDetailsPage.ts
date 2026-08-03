@@ -1,5 +1,6 @@
 import { Page, Locator } from 'playwright';
 import { BasePage } from '@pages/base/BasePage';
+import { taskData } from "@data/taskData";
 
 /**
  * Page Object representing the Task Details page.
@@ -97,5 +98,29 @@ export class TaskDetailsPage extends BasePage {
     /** Closes the task details view. */
     async closeTask() {
         await this.click(this.closeButton);
+    }
+
+    /**Verify task opens and verify detials */
+    async verifyTaskDetails(){
+        // Verify the task title matches the expected task name.
+    await this.verifyTaskTitle(taskData.taskName);
+
+    // Verify the task status is displayed correctly.
+    await this.verifyStatus(taskData.status);
+
+    // verify the assignee is displayed correctly.
+    await this.verifyAssignee(taskData.assignee)
+
+    // Verify the task priority is displayed correctly.
+    await this.verifyPriority(taskData.priority);
+
+    // Verify the task due date is displayed correctly.
+    await this.verifyDueDate(taskData.dueDate);
+
+    // Verify the task description matches the expected content.
+    await this.verifyDescription(taskData.taskDescription);
+
+    // Verify the activity/history section is visible on the task details page.
+    await this.verifyActivitySection();
     }
 }

@@ -1,5 +1,4 @@
 import { test } from "@fixtures/pagesFixture";
-import { taskData } from "@data/taskData";
 
 /**
  * Test Suite: Task Details Page
@@ -24,24 +23,7 @@ test("TC_011_Verify Task Details page opens", async ({ projectBoardPage, taskDet
     // Open the previously created task from the Board view.
     await projectBoardPage.openCreatedTask();
 
-    // Verify the task title matches the expected task name.
-    await taskDetailsPage.verifyTaskTitle(taskData.taskName);
-
-    // Verify the task status is displayed correctly.
-    await taskDetailsPage.verifyStatus(taskData.status);
-
-    // verify the assignee is displayed correctly.
-    await taskDetailsPage.verifyAssignee(taskData.assignee)
-
-    // Verify the task priority is displayed correctly.
-    await taskDetailsPage.verifyPriority(taskData.priority);
-
-    // Verify the task due date is displayed correctly.
-    await taskDetailsPage.verifyDueDate(taskData.dueDate);
-
-    // Verify the task description matches the expected content.
-    await taskDetailsPage.verifyDescription(taskData.taskDescription);
-
-    // Verify the activity/history section is visible on the task details page.
-    await taskDetailsPage.verifyActivitySection();
+    //verify task opens and showing detials.
+    await taskDetailsPage.verifyTaskDetails();
+    
 });
