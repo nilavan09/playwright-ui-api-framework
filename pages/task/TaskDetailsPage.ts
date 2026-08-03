@@ -1,11 +1,18 @@
 import { Page, Locator } from 'playwright';
 import { BasePage } from '@pages/base/BasePage';
 
-
-
+/**
+ * Page Object representing the Task Details page.
+ * 
+ * Encapsulates locators and verification methods for task attributes
+ * such as title, status, assignee, priority, due date, description,
+ * and the activity/history section.
+ */
 export class TaskDetailsPage extends BasePage {
 
+    // ---------------------------------------------------------------------
     // Locators
+    // ---------------------------------------------------------------------
     private readonly taskTitle: Locator;
     private readonly statusButton: Locator;
     private readonly assigneeButton: Locator;
@@ -15,47 +22,79 @@ export class TaskDetailsPage extends BasePage {
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
 
-
+    /**
+     * Initializes locators for the Task Details page.
+     * @param page - Playwright Page instance
+     */
     constructor(page: Page) {
         super(page);
 
         this.taskTitle = page.getByRole('textbox', { name: 'Edit task name' });
         this.statusButton = page.locator('[data-test="status-button-badge__body"]');
+        // Assumes the assignee avatar is the last item in the assignees list
         this.assigneeButton = page.locator('[data-test^="avatar-group__user-icon"]').last();
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
+        // Targets the first block in the rich text description editor
         this.descriptionInput = page.locator('.ql-editor .ql-block').first();
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
     }
+
+    /**
+     * Verifies the task title matches the expected value.
+     * @param taskName - Expected task name
+     */
     async verifyTaskTitle(taskName: string) {
         await this.expectValue(this.taskTitle, taskName);
     }
 
+    /**
+     * Verifies the task status matches the expected value.
+     * @param status - Expected status (e.g., "TO DO", "IN PROGRESS")
+     */
     async verifyStatus(status: string) {
         await this.expectToHaveText(this.statusButton, status);
     }
 
-    async verifyAssignee(assignee:string){
-        await this.expectToHaveText(this.assigneeButton,assignee)
+    /**
+     * Verifies the task assignee matches the expected value.
+     * @param assignee - Expected assignee initial/name
+     */
+    async verifyAssignee(assignee: string) {
+        await this.expectToHaveText(this.assigneeButton, assignee);
     }
 
+    /**
+     * Verifies the task priority matches the expected value.
+     * @param priority - Expected priority (e.g., "Normal", "High")
+     */
     async verifyPriority(priority: string) {
         await this.expectToHaveText(this.priorityButton, priority);
     }
 
+    /**
+     * Verifies the task due date matches the expected value.
+     * @param date - Expected due date (e.g., "Tomorrow")
+     */
     async verifyDueDate(date: string) {
         await this.expectToHaveText(this.dueDateButton, date);
     }
 
+    /**
+     * Verifies the task description matches the expected value.
+     * @param description - Expected description text
+     */
     async verifyDescription(description: string) {
         await this.expectToHaveText(this.descriptionInput, description);
     }
 
+    /** Verifies the activity/history section is visible on the task details page. */
     async verifyActivitySection() {
         await this.expectVisible(this.activitySection);
     }
 
+    /** Closes the task details view. */
     async closeTask() {
         await this.click(this.closeButton);
     }

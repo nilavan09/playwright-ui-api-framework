@@ -176,3 +176,33 @@ Expected Result
 - Priority, due date, and assignee are selected correctly.
 - Task is created successfully.
 - Created task appears on the Board view.
+
+TC_011_Verify Task Details page opens
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Verify the task title.
+- Verify the task status.
+- Verify the task priority.
+- Verify the task due date.
+- Verify the task description.
+- Verify the activity/history section.
+
+Expected Result
+
+- Task Details page opens successfully.
+- Task title matches the expected task name.
+- Task status is displayed correctly.
+- Task priority is displayed correctly.
+- Task due date is displayed correctly.
+- Task description matches the expected content.
+- Activity/history section is visible on the page.
