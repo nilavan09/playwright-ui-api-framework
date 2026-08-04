@@ -20,10 +20,22 @@ test.beforeEach(async ({ projectBoardPage }) => {
 
 test("TC_011_Verify Task Details page opens", async ({ projectBoardPage, taskDetailsPage }) => {
 
-    // Open the previously created task from the Board view.
+    // Open the previously created task from the Board view(TC_010).
     await projectBoardPage.openCreatedTask();
 
     //verify task opens and showing detials.
     await taskDetailsPage.verifyTaskDetails();
     
 });
+
+test ('TC_012_verify user can edit task description',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task.
+    await taskDetailsPage.editTask()
+    
+    // verify edited task name
+    await taskDetailsPage.verifyEditedTask()
+
+})

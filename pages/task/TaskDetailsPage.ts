@@ -37,7 +37,7 @@ export class TaskDetailsPage extends BasePage {
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
         // Targets the first block in the rich text description editor
-        this.descriptionInput = page.locator('.ql-editor .ql-block').first();
+        this.descriptionInput = page.locator('.ql-editor').first();
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
     }
@@ -101,26 +101,43 @@ export class TaskDetailsPage extends BasePage {
     }
 
     /**Verify task opens and verify detials */
-    async verifyTaskDetails(){
+    async verifyTaskDetails() {
         // Verify the task title matches the expected task name.
-    await this.verifyTaskTitle(taskData.taskName);
+        await this.verifyTaskTitle(taskData.taskName);
 
-    // Verify the task status is displayed correctly.
-    await this.verifyStatus(taskData.status);
+        // Verify the task status is displayed correctly.
+        await this.verifyStatus(taskData.status);
 
-    // verify the assignee is displayed correctly.
-    await this.verifyAssignee(taskData.assignee)
+        // verify the assignee is displayed correctly.
+        await this.verifyAssignee(taskData.assignee)
 
-    // Verify the task priority is displayed correctly.
-    await this.verifyPriority(taskData.priority);
+        // Verify the task priority is displayed correctly.
+        await this.verifyPriority(taskData.priority);
 
-    // Verify the task due date is displayed correctly.
-    await this.verifyDueDate(taskData.dueDate);
+        // Verify the task due date is displayed correctly.
+        await this.verifyDueDate(taskData.dueDate);
 
-    // Verify the task description matches the expected content.
-    await this.verifyDescription(taskData.taskDescription);
+        // Verify the task description matches the expected content.
+        await this.verifyDescription(taskData.taskDescription);
 
-    // Verify the activity/history section is visible on the task details page.
-    await this.verifyActivitySection();
+        // Verify the activity/history section is visible on the task details page.
+        await this.verifyActivitySection();
     }
+    /**
+    * Edits the task title by clearing the existing value
+    * and typing the new task name from test data.
+    */
+    async editTask() {
+        await this.taskTitle.click()
+        await this.taskTitle.clear()
+        await this.taskTitle.pressSequentially(taskData.taskNameEdit)
+    }
+
+    /** Verifies the task title reflects the edited value. */
+    async verifyEditedTask() {
+        await this.verifyTaskTitle(taskData.taskNameEdit)
+    }
+
+
+
 }

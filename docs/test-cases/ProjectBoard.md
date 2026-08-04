@@ -206,3 +206,23 @@ Expected Result
 - Task due date is displayed correctly.
 - Task description matches the expected content.
 - Activity/history section is visible on the page.
+
+TC_012_Verify user can edit task description.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Edit the task title.
+
+Expected Result
+
+- Task title is updated successfully.
+- Updated task title is displayed correctly on the Task Details page.
