@@ -28,14 +28,23 @@ test("TC_011_Verify Task Details page opens", async ({ projectBoardPage, taskDet
     
 });
 
+test ('TC_012_verify user can edit task title',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task.
+    await taskDetailsPage.editTask();
+    
+    // verify edited task name
+    await taskDetailsPage.verifyEditedTask();
+
+})
+
 test ('TC_012_verify user can edit task description',async ({projectBoardPage,taskDetailsPage})=>{
 
     // Open the previously created task from the Board view(TC_010).
     await projectBoardPage.openCreatedTask();
     // Edit the existing task.
-    await taskDetailsPage.editTask()
+    await taskDetailsPage.editDescription();
     
-    // verify edited task name
-    await taskDetailsPage.verifyEditedTask()
-
 })

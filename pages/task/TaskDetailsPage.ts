@@ -1,4 +1,4 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator,expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
 import { taskData } from "@data/taskData";
 
@@ -22,6 +22,8 @@ export class TaskDetailsPage extends BasePage {
     private readonly descriptionInput: Locator;
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
+    private readonly fullScreenButton: Locator;
+    private readonly descriptionSeletor :Locator;
 
     /**
      * Initializes locators for the Task Details page.
@@ -37,9 +39,10 @@ export class TaskDetailsPage extends BasePage {
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
         // Targets the first block in the rich text description editor
-        this.descriptionInput = page.locator('.ql-editor').first();
+        this.descriptionInput = page.locator('[data-block-id="block-POpFL6BdSJ"]');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
+        this.descriptionSeletor = page.getByText('This is a demo task description for TC_010')
     }
 
     /**
@@ -128,16 +131,20 @@ export class TaskDetailsPage extends BasePage {
     * and typing the new task name from test data.
     */
     async editTask() {
-        await this.taskTitle.click()
-        await this.taskTitle.clear()
-        await this.taskTitle.pressSequentially(taskData.taskNameEdit)
+        await this.taskTitle.click();
+        await this.taskTitle.clear();
+        await this.taskTitle.pressSequentially(taskData.taskNameEdit);
     }
 
     /** Verifies the task title reflects the edited value. */
     async verifyEditedTask() {
-        await this.verifyTaskTitle(taskData.taskNameEdit)
+        await this.verifyTaskTitle(taskData.taskNameEdit);
     }
 
+
+    async editDescription(){
+        await this.descriptionInput.click()
+    }
 
 
 }
