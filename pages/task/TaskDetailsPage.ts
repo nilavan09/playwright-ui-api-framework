@@ -1,4 +1,4 @@
-import { Page, Locator,expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
 import { taskData } from "@data/taskData";
 
@@ -22,8 +22,7 @@ export class TaskDetailsPage extends BasePage {
     private readonly descriptionInput: Locator;
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
-    private readonly fullScreenButton: Locator;
-    private readonly descriptionSeletor :Locator;
+    private readonly taskEditor: Locator;
 
     /**
      * Initializes locators for the Task Details page.
@@ -39,10 +38,10 @@ export class TaskDetailsPage extends BasePage {
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
         // Targets the first block in the rich text description editor
-        this.descriptionInput = page.locator('[data-block-id="block-POpFL6BdSJ"]');
+        this.descriptionInput = page.locator('[data-test="task-editor"] .ql-editor');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
-        this.descriptionSeletor = page.getByText('This is a demo task description for TC_010')
+        this.taskEditor = page.locator('[data-test="task-editor"]');
     }
 
     /**
@@ -141,9 +140,31 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyTaskTitle(taskData.taskNameEdit);
     }
 
+    /**
+    * Edits the task Description by clearing the existing value
+    * and typing the new task name from test data.
+    */
+    async editDescription() {
+        // Double-click the task description area to switch the editor into edit mode.
+        await this.taskEditor.dblclick();
+        // Verify that the description editor is now editable.
+        await expect(this.descriptionInput).toHaveAttribute(
+            'contenteditable',
+            'true'
+        );
+        // Focus the description editor before entering or updating the text.
+        await this.descriptionInput.click();
 
-    async editDescription(){
-        await this.descriptionInput.click()
+        // Select existing text
+        await this.descriptionInput.press('Control+A');
+
+        // Replace with new text
+        await this.page.keyboard.insertText(taskData.taskDescriptionEdited);
+    }
+
+    // Verify Edited description.
+    async verifyEditedDescripition(){
+        await this.verifyDescription(taskData.taskDescriptionEdited);
     }
 
 
