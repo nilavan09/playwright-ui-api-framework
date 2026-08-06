@@ -49,3 +49,13 @@ test ('TC_013_verify user can edit task description',async ({projectBoardPage,ta
     // Verify updated Description.
     await taskDetailsPage.verifyEditedDescripition();
 })
+
+test ('TC_014_verify user can edit task priority',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task priority.
+    await taskDetailsPage.editPriority();
+    // Verify updated priority.
+    await taskDetailsPage.verifyEditedPriority();
+})

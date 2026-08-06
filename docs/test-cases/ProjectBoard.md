@@ -226,3 +226,45 @@ Expected Result
 
 - Task title is updated successfully.
 - Updated task title is displayed correctly on the Task Details page.
+
+TC_013_Verify user can edit task description
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Edit the task description.
+
+Expected Result
+
+- Task description is updated successfully.
+- Updated task description is displayed correctly on the Task Details page.
+
+TC_014_Verify user can edit task priority
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Click on the priority dropdown.
+- Select "Low" priority.
+
+Expected Result
+
+- Priority dropdown is opened.
+- Priority is updated to "Low".
+- Updated priority is displayed correctly on the Task Details page.

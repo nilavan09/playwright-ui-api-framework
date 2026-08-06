@@ -23,6 +23,7 @@ export class TaskDetailsPage extends BasePage {
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
     private readonly taskEditor: Locator;
+    private readonly priorityOptionLow: Locator;
 
     /**
      * Initializes locators for the Task Details page.
@@ -42,6 +43,8 @@ export class TaskDetailsPage extends BasePage {
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
         this.taskEditor = page.locator('[data-test="task-editor"]');
+        this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' })
+
     }
 
     /**
@@ -163,9 +166,23 @@ export class TaskDetailsPage extends BasePage {
     }
 
     // Verify Edited description.
-    async verifyEditedDescripition(){
+    async verifyEditedDescripition() {
         await this.verifyDescription(taskData.taskDescriptionEdited);
     }
 
+    /**
+    * Edits the task priority by opening the priority dropdown
+    * and selecting the "Low" priority option.
+    */
+    async editPriority() {
+        await this.priorityButton.click()
+        await this.priorityOptionLow.click()
+
+    }
+
+    /** Verifies the task priority reflects the updated value. */
+    async verifyEditedPriority() {
+        await this.expectToHaveText(this.priorityButton, taskData.changedPriority)
+    }
 
 }

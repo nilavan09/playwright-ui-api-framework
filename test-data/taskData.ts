@@ -5,7 +5,9 @@ export const taskData = {
     taskNameEdit:"TC_010_Playwright Demo Task Edited",
     priority: "Normal",
     selectedPriority:" Normal priority",
+    changedPriority:' Low ',
     dueDate: "Tomorrow",
     assignee: "R",
     status: "to do"
+
 };
