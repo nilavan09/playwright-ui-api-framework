@@ -25,6 +25,10 @@ export class TaskDetailsPage extends BasePage {
     private readonly taskEditor: Locator;
     private readonly priorityOptionLow: Locator;
     private readonly dateInputClear:Locator;
+    private readonly removeAssignee:Locator;
+    private readonly assigneeDropdownOpener:Locator;
+    private readonly selectAssigneeName:Locator;
+
     
 
     /**
@@ -47,6 +51,9 @@ export class TaskDetailsPage extends BasePage {
         this.taskEditor = page.locator('[data-test="task-editor"]');
         this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
         this.dateInputClear = page.locator('[data-test="datetime-input__clear-button"]').last();
+        this.removeAssignee = page.locator('[data-test="user-group__remove"]') 
+        this.assigneeDropdownOpener = page.getByRole('button', { name: 'Open assignees dropdown' });
+        this.selectAssigneeName =page.locator('cu-user-item').filter({ hasText: 'Me' });
         
     }
     //dynamic locator method
@@ -210,6 +217,18 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyDueDate(taskData.dueDateOptions[0]);
         
     }
-
-
+    /**
+    * Edits the task assignee by removing the current assignee
+    * and selecting a new one from the assignee dropdown.
+    */
+    async editAssignee(){
+        await this.assigneeButton.hover();
+        await this.removeAssignee.click();
+        await this.assigneeDropdownOpener.click();
+        await this.selectAssigneeName.click();
+    }
+    //Verifies the task assignee reflects the updated value. 
+    async verifyEditedAsssignee(){
+        await this.verifyAssignee(taskData.assignee[1]);
+    }
 }

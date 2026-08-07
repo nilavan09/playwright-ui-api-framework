@@ -71,3 +71,13 @@ test ('TC_015_verify user can edit task duedate',async ({projectBoardPage,taskDe
 
 })
                             
+test ('TC_016_verify user can edit task asignee',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task's assignee..
+    await taskDetailsPage.editAssignee();
+    // Verify the updated assignee.
+    await taskDetailsPage.verifyEditedAsssignee();
+
+})
