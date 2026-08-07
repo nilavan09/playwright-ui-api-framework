@@ -24,6 +24,8 @@ export class TaskDetailsPage extends BasePage {
     private readonly closeButton: Locator;
     private readonly taskEditor: Locator;
     private readonly priorityOptionLow: Locator;
+    private readonly dateInputClear:Locator;
+    
 
     /**
      * Initializes locators for the Task Details page.
@@ -43,8 +45,18 @@ export class TaskDetailsPage extends BasePage {
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.getByRole('button', { name: 'Close window' });
         this.taskEditor = page.locator('[data-test="task-editor"]');
-        this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' })
-
+        this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
+        this.dateInputClear = page.locator('[data-test="datetime-input__clear-button"]').last();
+        
+    }
+    //dynamic locator method
+    /**
+     * Returns a locator for a quick-select due date option
+     * (e.g., "Today", "Tomorrow", "Next week").
+     * @param label - The visible label of the due date option
+     */
+    private dueDateOption(label: string): Locator {
+        return this.page.getByRole('button', { name: label}).first();
     }
 
     /**
@@ -114,13 +126,13 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyStatus(taskData.status);
 
         // verify the assignee is displayed correctly.
-        await this.verifyAssignee(taskData.assignee)
+        await this.verifyAssignee(taskData.assignee[0])
 
         // Verify the task priority is displayed correctly.
         await this.verifyPriority(taskData.priority);
 
         // Verify the task due date is displayed correctly.
-        await this.verifyDueDate(taskData.dueDate);
+        await this.verifyDueDate(taskData.dueDateOptions[1]);
 
         // Verify the task description matches the expected content.
         await this.verifyDescription(taskData.taskDescription);
@@ -184,5 +196,20 @@ export class TaskDetailsPage extends BasePage {
     async verifyEditedPriority() {
         await this.expectToHaveText(this.priorityButton, taskData.changedPriority)
     }
+    /**
+    * Updates the task due date by clearing the existing value
+    * and selecting a new due date from the available options.
+    */
+    async editDueDate(){
+        await this.dueDateButton.click();
+        await this.dateInputClear.click();
+        await this.dueDateOption(taskData.dueDateOptions[0]).click();
+    }
+    //Verifies the task due date reflects the updated value.
+    async verifyeditedDueDate(){
+        await this.verifyDueDate(taskData.dueDateOptions[0]);
+        
+    }
+
 
 }

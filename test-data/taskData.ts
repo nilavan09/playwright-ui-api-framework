@@ -6,8 +6,14 @@ export const taskData = {
     priority: "Normal",
     selectedPriority:" Normal priority",
     changedPriority:' Low ',
-    dueDate: "Tomorrow",
-    assignee: "R",
-    status: "to do"
+    assignee: [
+        "R",
+        "PG"
+    ],
+    status: "to do",
+    dueDateOptions: [
+        "Today",
+        "Tomorrow",
+    ],
 
 };

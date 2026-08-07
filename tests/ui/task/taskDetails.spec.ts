@@ -59,3 +59,15 @@ test ('TC_014_verify user can edit task priority',async ({projectBoardPage,taskD
     // Verify updated priority.
     await taskDetailsPage.verifyEditedPriority();
 })
+
+test ('TC_015_verify user can edit task duedate',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task duedate.
+    await taskDetailsPage.editDueDate();
+    // Verify updated duedate.
+    await taskDetailsPage.verifyeditedDueDate();
+
+})
+                            

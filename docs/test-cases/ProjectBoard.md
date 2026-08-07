@@ -268,3 +268,25 @@ Expected Result
 - Priority dropdown is opened.
 - Priority is updated to "Low".
 - Updated priority is displayed correctly on the Task Details page.
+
+TC_015_Verify user can edit task due date
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Click on the due date field.
+- Select a new due date.
+
+Expected Result
+
+- Due date picker is opened.
+- Due date is updated successfully.
+- Updated due date is displayed correctly on the Task Details page.

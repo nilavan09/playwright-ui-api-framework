@@ -120,7 +120,7 @@ export class AddTaskPage extends BasePage {
 
     /** Verifies the due date field displays the expected selected date. */
     async verifyDueDateSelected() {
-        await this.expectToHaveText(this.DueDatePicker , taskData.dueDate);
+        await this.expectToHaveText(this.DueDatePicker , taskData.dueDateOptions[1]);
     }
 
     /** Opens the assignee selector and selects the last available user in the list. */
@@ -152,7 +152,7 @@ export class AddTaskPage extends BasePage {
         await this.selectDueDate();
         await this.verifyDueDateSelected();
         await this.selectAssignee();
-        await this.verifyAssigneeSelected(taskData.assignee);
+        await this.verifyAssigneeSelected(taskData.assignee[0]);
         await this.click(this.createTaskButton);
     }
 
