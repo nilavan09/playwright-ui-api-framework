@@ -290,3 +290,28 @@ Expected Result
 - Due date picker is opened.
 - Due date is updated successfully.
 - Updated due date is displayed correctly on the Task Details page.
+
+TC_016_Verify user can edit task assignee
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the created task from the Board view.
+- Hover over the assignee field.
+- Remove the current assignee.
+- Click on the assignee dropdown.
+- Select a new assignee from the list.
+
+Expected Result
+
+- Current assignee is removed successfully.
+- Assignee dropdown opens correctly.
+- New assignee is selected successfully.
+- Updated assignee is displayed correctly on the Task Details page.
