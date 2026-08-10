@@ -66,6 +66,17 @@ export class TaskDetailsPage extends BasePage {
         return this.page.getByRole('button', { name: label}).first();
     }
 
+     /**
+     * Returns a locator for a status options
+     * (e.g., "TO DO", "IN PROGRESS", "COMPLETE").
+     * @param label - The visible label of the  options
+     */
+    private statusoptions(label: string): Locator {
+        return this.page.locator(`[data-test-status="${label.toLowerCase()}"]`);
+        //return this.page.locator('[data-test-status="in progress"]');
+
+    }
+
     /**
      * Verifies the task title matches the expected value.
      * @param taskName - Expected task name
@@ -130,7 +141,7 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyTaskTitle(taskData.taskName);
 
         // Verify the task status is displayed correctly.
-        await this.verifyStatus(taskData.status);
+        await this.verifyStatus(taskData.statusOptions[1]);
 
         // verify the assignee is displayed correctly.
         await this.verifyAssignee(taskData.assignee[0])
@@ -230,5 +241,19 @@ export class TaskDetailsPage extends BasePage {
     //Verifies the task assignee reflects the updated value. 
     async verifyEditedAsssignee(){
         await this.verifyAssignee(taskData.assignee[1]);
+    }
+
+    /**
+    * Edits the task status by removing the current status.
+    * and selecting a new one from the status options.
+    */
+    async editStatus(){
+        await this.statusButton.click();
+        await this.statusoptions(taskData.statusOptions[1]).click();
+
+    }
+    //Verifies the task status reflects the updated value. 
+    async verifyEditedStatus(){
+        await this.verifyStatus(taskData.statusOptions[1]);
     }
 }

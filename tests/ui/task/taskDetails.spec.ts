@@ -81,3 +81,14 @@ test ('TC_016_verify user can edit task asignee',async ({projectBoardPage,taskDe
     await taskDetailsPage.verifyEditedAsssignee();
 
 })
+
+test ('TC_017_verify user can edit task status',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // Edit the existing task's status.
+    await taskDetailsPage.editStatus();
+    // Verify the updated task status.
+    await taskDetailsPage.verifyEditedStatus();
+
+})

@@ -10,10 +10,14 @@ export const taskData = {
         "R",
         "PG"
     ],
-    status: "to do",
     dueDateOptions: [
         "Today",
         "Tomorrow",
     ],
+    statusOptions:[
+        'to do',
+        'in progress',
+        'complete'
+    ]
 
 };
