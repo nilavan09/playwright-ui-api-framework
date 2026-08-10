@@ -256,4 +256,11 @@ export class TaskDetailsPage extends BasePage {
     async verifyEditedStatus(){
         await this.verifyStatus(taskData.statusOptions[1]);
     }
+
+    /** Verifies the Task Details panel is closed (no longer visible). */
+    async verifyTaskDetailsClosed() {
+        await this.expectHidden(this.taskTitle);
+    }
+
+
 }

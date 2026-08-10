@@ -24,6 +24,8 @@ export class ProjectBoardPage extends BasePage {
     private readonly customizeButton: Locator;
     private readonly addTaskButton: Locator;
     private readonly createdTask: Locator;
+    private readonly moreButton: Locator;
+    private readonly deleteButton: Locator;
 
 
     /**
@@ -49,6 +51,8 @@ export class ProjectBoardPage extends BasePage {
         this.addTaskButton = page.locator('[data-test="cu2-views-bar__create-menu-view-bar-collapsed"]');
         this.customizeButton = page.locator('[cutooltip="Customize your view settings"]');
         this.createdTask = page.locator('[data-test^="board-group__task-list-item__"]').nth(3);
+        this.moreButton = page.locator('button').filter({ hasText: 'More actions' }).first()
+        this.deleteButton = page.getByText('Delete');
         
         
 
@@ -98,6 +102,18 @@ export class ProjectBoardPage extends BasePage {
     /** Opens the newly created task by clicking on it. */
     async openCreatedTask() {
         await this.click(this.createdTask);
+    }
+
+    // Delete created task.
+    async deleteTask(){
+        await this.createdTask.hover();
+        await this.moreButton.click();
+        await this.deleteButton.click();
+    }
+
+    // verify Deleted task is not visible on the board.
+    async verifydeletedTask(){
+        await this.expectHidden(this.createdTask)
     }
 
 }

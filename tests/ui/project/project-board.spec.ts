@@ -85,7 +85,7 @@ test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTask
     await projectBoardPage.clickAddTask();  
     // Select assignee from dropdown and verify correct user initial is displayed.
     await addTaskPage.selectAssignee();
-    await addTaskPage.verifyAssigneeSelected(taskData.assignee);
+    await addTaskPage.verifyAssigneeSelected(taskData.assignee[0]);
 });
 
 // End-to-End Task Creation

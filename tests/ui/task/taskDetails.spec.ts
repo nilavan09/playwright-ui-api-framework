@@ -92,3 +92,17 @@ test ('TC_017_verify user can edit task status',async ({projectBoardPage,taskDet
     await taskDetailsPage.verifyEditedStatus();
 
 })
+
+test ('TC_018_verify user can close task detials',async ({projectBoardPage,taskDetailsPage})=>{
+
+    // Open the previously created task from the Board view(TC_010).
+    await projectBoardPage.openCreatedTask();
+    // close the existing task.
+    await taskDetailsPage.closeTask();
+    // Verify the updated task status.
+    await taskDetailsPage.verifyTaskDetailsClosed();
+
+})
+
+
+

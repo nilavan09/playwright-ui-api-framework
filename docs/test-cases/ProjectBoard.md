@@ -315,3 +315,49 @@ Expected Result
 - Assignee dropdown opens correctly.
 - New assignee is selected successfully.
 - Updated assignee is displayed correctly on the Task Details page.
+
+TC_017_verify user can edit task status
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the previously created task from the Board view.
+- Edit the existing task's status.
+- Verify the updated task status.
+
+Expected Result
+
+- The created task opens successfully.
+- Task status can be edited successfully.
+- The selected task status is updated successfully.
+- Updated task status is displayed correctly on the Task Details page.
+
+
+TC_018_verify user can close task details
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+- Open the previously created task from the Board view.
+- Close the task details.
+- Verify that the task details are closed.
+
+Expected Result
+
+- The created task opens successfully.
+- Task Details can be closed successfully.
+- Task Details page is closed.

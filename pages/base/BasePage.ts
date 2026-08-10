@@ -170,6 +170,15 @@ export class BasePage {
         await expect(locator).toBeEnabled();
     }
 
+    /**
+     * Verifies the given locator is hidden (not visible) on the page.
+     * Use this to confirm elements are closed, removed, or collapsed.
+     * @param locator - The element to check
+     */
+    async expectHidden(locator: Locator) {
+        await expect(locator).toBeHidden();
+    }
+
     // Waits
 
     /**
