@@ -47,7 +47,7 @@ export class TaskDetailsPage extends BasePage {
         // Targets the first block in the rich text description editor
         this.descriptionInput = page.locator('[data-test="task-editor"] .ql-editor');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
-        this.closeButton = page.getByRole('button', { name: 'Close window' });
+        this.closeButton = page.locator('[data-test="task-close-v3"]');
         this.taskEditor = page.locator('[data-test="task-editor"]');
         this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
         this.dateInputClear = page.locator('[data-test="datetime-input__clear-button"]').last();
@@ -132,6 +132,7 @@ export class TaskDetailsPage extends BasePage {
 
     /** Closes the task details view. */
     async closeTask() {
+        await this.waitForVisible(this.closeButton)
         await this.click(this.closeButton);
     }
 
@@ -141,7 +142,7 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyTaskTitle(taskData.taskName);
 
         // Verify the task status is displayed correctly.
-        await this.verifyStatus(taskData.statusOptions[1]);
+        await this.verifyStatus(taskData.statusOptions[0]);
 
         // verify the assignee is displayed correctly.
         await this.verifyAssignee(taskData.assignee[0])
