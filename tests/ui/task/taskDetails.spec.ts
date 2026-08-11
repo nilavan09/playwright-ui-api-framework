@@ -3,9 +3,16 @@ import { test } from "@fixtures/pagesFixture";
 /**
  * Test Suite: Task Details Page
  * 
- * Verifies that a created task can be opened from the Board view
- * and that all its details (title, status, priority, due date,
- * description, and activity log) display correctly.
+ * Covers verification and editing of a task's details — title, status,
+ * priority, due date, assignee, and description — as well as closing
+ * the Task Details panel.
+ * 
+ * TC_011 to TC_018 are grouped under a "Task Details" describe block and
+ * share a single task instance: opened in beforeEach and closed in afterEach
+ * (except TC_018, which tests the close action itself and skips cleanup
+ * via the "skipCleanup" annotation).
+ * 
+ * TC_019 runs independently and verifies task deletion from the Board view.
  */
 test.describe("Task Details", () => {
 /**
@@ -104,7 +111,13 @@ test('TC_018_verify user can close task detials', {annotation: {type: "skipClean
 
 }
 );
-
+/**
+ * TC_019_Verify user can delete task
+ * 
+ * Runs independently of the "Task Details" describe block since it
+ * deletes the task rather than editing/closing it. Uses "skipCleanup"
+ * to avoid the shared afterEach logic acting on an already-deleted task.
+ */
 test("TC_019_Verify user can delete task",
     {
         annotation: {
@@ -116,7 +129,9 @@ test("TC_019_Verify user can delete task",
 
         await projectBoardPage.navigate("/");
         await projectBoardPage.openBoardView();
+         // Delete the task from the Board view.
         await projectBoardPage.deleteTask();
+        // Verify the task no longer appears on the Board.
         await projectBoardPage.verifydeletedTask();
     }   
 );
