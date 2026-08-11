@@ -7,7 +7,7 @@ import { test } from "@fixtures/pagesFixture";
  * and that all its details (title, status, priority, due date,
  * description, and activity log) display correctly.
  */
-
+test.describe("Task Details", () => {
 /**
  * Runs before each test.
  * Navigates to the home page and opens the Board view
@@ -100,6 +100,25 @@ test('TC_018_verify user can close task detials', {annotation: {type: "skipClean
         // Verify the updated task status.
         await taskDetailsPage.verifyTaskDetailsClosed();
     }
+);
+
+}
+);
+
+test("TC_019_Verify user can delete task",
+    {
+        annotation: {
+            type: "skipCleanup",
+            description: "Task is being deleted"
+        }
+    },
+    async ({ projectBoardPage }) => {
+
+        await projectBoardPage.navigate("/");
+        await projectBoardPage.openBoardView();
+        await projectBoardPage.deleteTask();
+        await projectBoardPage.verifydeletedTask();
+    }   
 );
 
 

@@ -361,3 +361,23 @@ Expected Result
 - The created task opens successfully.
 - Task Details can be closed successfully.
 - Task Details page is closed.
+
+TC_019_Verify user can delete task.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- A task has already been created (TC_010).
+
+Steps
+
+- Navigate to the Project Board.
+- Hover over on the created task. 
+- click on the menu icon.
+- click on delete button. 
+- Verify that the task deleted from the board.
+
+Expected Result
+
+- The created task deleted successfully.
