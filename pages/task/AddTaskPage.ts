@@ -1,7 +1,7 @@
 import {Page, Locator} from "@playwright/test";
 import { BasePage } from "@pages/base/BasePage";
 import { taskData } from "@data/taskData";
-
+import { PriorityDropdown } from "@components/PriorityDropdown";
 /**
  * Page Object representing the Add Task dialog.
  * 
@@ -15,17 +15,19 @@ export class AddTaskPage extends BasePage {
     private readonly descriptionInput: Locator;
     private readonly assigneeButton: Locator;
     private readonly dueDateButton: Locator;
-    private readonly priorityButton: Locator;
+    //private readonly priorityButton: Locator;
     private readonly tagsButton: Locator;
     private readonly closeButton: Locator;
     private readonly descriptionPlaceholder: Locator;
-    private readonly priorityDropdown: Locator;
-    private readonly highPriorityOption: Locator;
+    //private readonly priorityDropdown: Locator;
+    //private readonly highPriorityOption: Locator;
     private readonly DueDatePicker: Locator;
     private readonly DueDatePickerDay: Locator;
     private readonly assigeeSelector: Locator;
     private readonly assigneeOption: Locator;
     private readonly createTaskButton: Locator;
+    private readonly priorityDropdown: PriorityDropdown;
+    private readonly priorityButton: Locator;
 
 
     /**
@@ -42,12 +44,13 @@ export class AddTaskPage extends BasePage {
         this.descriptionInput = page.locator('[data-test="prompt-template-empty-description__task-v4-layout"]');
         this.assigneeButton = page.locator('[cupendoid="quick-create-task-draft-assignee"]');
         this.dueDateButton = page.locator('[data-test="draft-view__due-date"]');
-        this.priorityButton = page.locator('[data-test="priorities-list__dropdown-toggle"]').nth(4);
+        this.priorityButton = page.locator('[data-test="priorities-list__dropdown"]').nth(4);
         this.tagsButton = page.locator('[data-test="dropdown__toggle"]');
         this.closeButton = page.locator('[data-test="modal-close-btn"]');
         this.descriptionPlaceholder = page.locator('.ql-block');
-        this.priorityDropdown = page.locator('[data-test="priorities-list__dropdown-toggle"]').nth(4);
-        this.highPriorityOption = page.getByRole('button', { name: 'Normal' });
+        //this.priorityDropdown = page.locator('[data-test="priorities-list__dropdown-toggle"]').nth(4);
+        //this.highPriorityOption = page.getByRole('button', { name: 'Normal' });
+        this.priorityDropdown = new PriorityDropdown(page, this.priorityButton)
         this.DueDatePicker = page.locator('[data-test="draft-view__due-date"]');
         this.DueDatePickerDay = page.locator('[data-test-id="tomorrow"]');
         this.assigeeSelector = page.locator('[data-pendo="quick-create-task-draft-assignee"]');
@@ -101,16 +104,24 @@ export class AddTaskPage extends BasePage {
         await this.expectToHaveText(this.descriptionPlaceholder , description);
     }
 
-    /** Opens the priority dropdown and selects "Normal" priority. */
+    // /** Opens the priority dropdown and selects "Normal" priority. */
+    // async selectNormalPriority() {
+    //     await this.click(this.priorityDropdown);
+    //     await this.click(this.highPriorityOption);
+    // }
+
+    // /** Verifies that "Normal" priority is selected and reflected in the dropdown. */
+    // async verifyNormalPrioritySelected() {
+    //     await this.expectToHaveText(this.priorityDropdown , taskData.selectedPriority);
+    // }  
+
     async selectNormalPriority() {
-        await this.click(this.priorityDropdown);
-        await this.click(this.highPriorityOption);
+        await this.priorityDropdown.selectPriority(taskData.priorityOptions[0]);
     }
 
-    /** Verifies that "Normal" priority is selected and reflected in the dropdown. */
     async verifyNormalPrioritySelected() {
-        await this.expectToHaveText(this.priorityDropdown , taskData.selectedPriority);
-    }   
+        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
+    }
 
      /** Opens the due date picker and selects "Tomorrow" as the due date. */
     async selectDueDate() {

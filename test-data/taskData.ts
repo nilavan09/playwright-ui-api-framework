@@ -1,11 +1,10 @@
+import { getPriority } from "node:os";
+
 export const taskData = {
     taskName: "TC_010_Playwright Demo Task",
     taskDescription: "This is a demo task description for TC_010",
     taskDescriptionEdited: "This is a demo task description for TC_010 edited",
     taskNameEdit:"TC_010_Playwright Demo Task Edited",
-    priority: "Normal",
-    selectedPriority:" Normal priority",
-    changedPriority:' Low ',
     assignee: [
         "R",
         "PG"
@@ -18,6 +17,13 @@ export const taskData = {
         'to do',
         'in progress',
         'complete'
-    ]
+    ],
+    priorityOptions:[
+        "Normal",
+         "Low",
+         "Urgent",
+         "High"
+    ],
+
 
 };

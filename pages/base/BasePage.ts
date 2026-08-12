@@ -71,12 +71,12 @@ export class BasePage {
         await locator.press(key);
     }
 
-     /**
-     * Presses a keyboard key on the specified element.
-     *
-     * @param locator - Element locator.
-     * @param key - Keyboard keys to press.
-     */
+    /**
+    * Presses a keyboard key on the specified element.
+    *
+    * @param locator - Element locator.
+    * @param key - Keyboard keys to press.
+    */
     async pressSequentially(locator: Locator, key: string): Promise<void> {
         await locator.pressSequentially(key);
     }
@@ -131,16 +131,16 @@ export class BasePage {
      */
     async expectValue(locator: Locator, value: string): Promise<void> {
         await expect(locator).toHaveValue(value);
-   }
+    }
 
-   /**
-     * 
-     * @param locator - Elemrnt Locator
-     * @param value  - String value that we pass.
-     */
+    /**
+      * 
+      * @param locator - Elemrnt Locator
+      * @param value  - String value that we pass.
+      */
     async expectToHaveText(locator: Locator, value: string): Promise<void> {
         await expect(locator).toHaveText(value);
-   }
+    }
     /**
      * Verifies that an element is visible.
      *
@@ -178,6 +178,17 @@ export class BasePage {
     async expectHidden(locator: Locator) {
         await expect(locator).toBeHidden();
     }
+
+        /**
+     * Verifies the given locator contains the specified text.
+     * Use this to confirm an element's text content includes a given substring.
+     * @param locator - The element to check
+     * @param text - The text (or pattern) expected to be contained within the element
+     */
+        async expectToContainText(locator: Locator, value: string) {
+            await expect(locator).toContainText(value);
+        }
+
 
     // Waits
 

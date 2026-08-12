@@ -1,6 +1,8 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
 import { taskData } from "@data/taskData";
+import { PriorityDropdown } from "@components/PriorityDropdown";
+
 
 /**
  * Page Object representing the Task Details page.
@@ -23,11 +25,12 @@ export class TaskDetailsPage extends BasePage {
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
     private readonly taskEditor: Locator;
-    private readonly priorityOptionLow: Locator;
+    //private readonly priorityOptionLow: Locator;
     private readonly dateInputClear:Locator;
     private readonly removeAssignee:Locator;
     private readonly assigneeDropdownOpener:Locator;
     private readonly selectAssigneeName:Locator;
+    private readonly priorityDropdown: PriorityDropdown;
 
     
 
@@ -44,16 +47,18 @@ export class TaskDetailsPage extends BasePage {
         this.assigneeButton = page.locator('[data-test^="avatar-group__user-icon"]').last();
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
+        this.priorityDropdown = new PriorityDropdown(page,this.priorityButton);
         // Targets the first block in the rich text description editor
         this.descriptionInput = page.locator('[data-test="task-editor"] .ql-editor');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.locator('[data-test="task-close-v3"]');
         this.taskEditor = page.locator('[data-test="task-editor"]');
-        this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
+        //this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
         this.dateInputClear = page.locator('[data-test="datetime-input__clear-button"]').last();
         this.removeAssignee = page.locator('[data-test="user-group__remove"]') 
         this.assigneeDropdownOpener = page.getByRole('button', { name: 'Open assignees dropdown' });
         this.selectAssigneeName =page.locator('cu-user-item').filter({ hasText: 'Me' });
+        
         
     }
     //dynamic locator method
@@ -148,7 +153,7 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyAssignee(taskData.assignee[0])
 
         // Verify the task priority is displayed correctly.
-        await this.verifyPriority(taskData.priority);
+        await this.verifyPriority(taskData.priorityOptions[0]);
 
         // Verify the task due date is displayed correctly.
         await this.verifyDueDate(taskData.dueDateOptions[1]);
@@ -205,15 +210,23 @@ export class TaskDetailsPage extends BasePage {
     * Edits the task priority by opening the priority dropdown
     * and selecting the "Low" priority option.
     */
-    async editPriority() {
-        await this.priorityButton.click()
-        await this.priorityOptionLow.click()
+    // async editPriority() {
+    //     await this.priorityButton.click()
+    //     await this.priorityOptionLow.click()
 
+    // }
+
+    // /** Verifies the task priority reflects the updated value. */
+    // async verifyEditedPriority() {
+    //     await this.expectToHaveText(this.priorityButton, taskData.changedPriority)
+    // }
+
+    async editPriority(){
+        await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
     }
 
-    /** Verifies the task priority reflects the updated value. */
-    async verifyEditedPriority() {
-        await this.expectToHaveText(this.priorityButton, taskData.changedPriority)
+    async verifyEditedPriority(){
+        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[1])
     }
     /**
     * Updates the task due date by clearing the existing value
