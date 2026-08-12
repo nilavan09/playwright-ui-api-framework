@@ -15,12 +15,9 @@ export class AddTaskPage extends BasePage {
     private readonly descriptionInput: Locator;
     private readonly assigneeButton: Locator;
     private readonly dueDateButton: Locator;
-    //private readonly priorityButton: Locator;
     private readonly tagsButton: Locator;
     private readonly closeButton: Locator;
     private readonly descriptionPlaceholder: Locator;
-    //private readonly priorityDropdown: Locator;
-    //private readonly highPriorityOption: Locator;
     private readonly DueDatePicker: Locator;
     private readonly DueDatePickerDay: Locator;
     private readonly assigeeSelector: Locator;
@@ -48,8 +45,6 @@ export class AddTaskPage extends BasePage {
         this.tagsButton = page.locator('[data-test="dropdown__toggle"]');
         this.closeButton = page.locator('[data-test="modal-close-btn"]');
         this.descriptionPlaceholder = page.locator('.ql-block');
-        //this.priorityDropdown = page.locator('[data-test="priorities-list__dropdown-toggle"]').nth(4);
-        //this.highPriorityOption = page.getByRole('button', { name: 'Normal' });
         this.priorityDropdown = new PriorityDropdown(page, this.priorityButton)
         this.DueDatePicker = page.locator('[data-test="draft-view__due-date"]');
         this.DueDatePickerDay = page.locator('[data-test-id="tomorrow"]');

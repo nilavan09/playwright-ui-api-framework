@@ -25,7 +25,6 @@ export class TaskDetailsPage extends BasePage {
     private readonly activitySection: Locator;
     private readonly closeButton: Locator;
     private readonly taskEditor: Locator;
-    //private readonly priorityOptionLow: Locator;
     private readonly dateInputClear:Locator;
     private readonly removeAssignee:Locator;
     private readonly assigneeDropdownOpener:Locator;
@@ -53,7 +52,6 @@ export class TaskDetailsPage extends BasePage {
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
         this.closeButton = page.locator('[data-test="task-close-v3"]');
         this.taskEditor = page.locator('[data-test="task-editor"]');
-        //this.priorityOptionLow = page.locator('[data-test="priority-list-priorities"]').getByRole('button', { name: 'Low' });
         this.dateInputClear = page.locator('[data-test="datetime-input__clear-button"]').last();
         this.removeAssignee = page.locator('[data-test="user-group__remove"]') 
         this.assigneeDropdownOpener = page.getByRole('button', { name: 'Open assignees dropdown' });
