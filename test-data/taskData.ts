@@ -10,8 +10,14 @@ export const taskData = {
         "PG"
     ],
     dueDateOptions: [
-        "Today",
-        "Tomorrow",
+    {
+        value: "today",
+        label: "Today"
+    },
+    {
+        value: "tomorrow",
+        label: "Tomorrow"
+    }
     ],
     statusOptions:[
         'to do',

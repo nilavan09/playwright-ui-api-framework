@@ -1,7 +1,8 @@
-import {Page, Locator} from "@playwright/test";
+import { Page, Locator } from "@playwright/test";
 import { BasePage } from "@pages/base/BasePage";
 import { taskData } from "@data/taskData";
 import { PriorityDropdown } from "@components/PriorityDropdown";
+import { DueDatePicker } from "@components/DueDatePicker";
 /**
  * Page Object representing the Add Task dialog.
  * 
@@ -18,8 +19,9 @@ export class AddTaskPage extends BasePage {
     private readonly tagsButton: Locator;
     private readonly closeButton: Locator;
     private readonly descriptionPlaceholder: Locator;
-    private readonly DueDatePicker: Locator;
-    private readonly DueDatePickerDay: Locator;
+    //private readonly DueDatePicker: Locator;
+    //private readonly DueDatePickerDay: Locator;
+    private readonly dueDateDropdown: DueDatePicker;
     private readonly assigeeSelector: Locator;
     private readonly assigneeOption: Locator;
     private readonly createTaskButton: Locator;
@@ -45,9 +47,10 @@ export class AddTaskPage extends BasePage {
         this.tagsButton = page.locator('[data-test="dropdown__toggle"]');
         this.closeButton = page.locator('[data-test="modal-close-btn"]');
         this.descriptionPlaceholder = page.locator('.ql-block');
-        this.priorityDropdown = new PriorityDropdown(page, this.priorityButton)
-        this.DueDatePicker = page.locator('[data-test="draft-view__due-date"]');
-        this.DueDatePickerDay = page.locator('[data-test-id="tomorrow"]');
+        this.priorityDropdown = new PriorityDropdown(page, this.priorityButton);
+        this.dueDateDropdown = new DueDatePicker(page, this.dueDateButton)
+        //this.DueDatePicker = page.locator('[data-test="draft-view__due-date"]');
+        //this.DueDatePickerDay = page.locator('[data-test-id="tomorrow"]');
         this.assigeeSelector = page.locator('[data-pendo="quick-create-task-draft-assignee"]');
         this.assigneeOption = page.locator('[class="user-list-item__icon"]').last();
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
@@ -65,10 +68,10 @@ export class AddTaskPage extends BasePage {
         await this.expectVisible(this.closeButton);
     }
 
-     /**
-     * Fills the task name input field.
-     * @param taskName - Name of the task to enter
-     */
+    /**
+    * Fills the task name input field.
+    * @param taskName - Name of the task to enter
+    */
     async fillTaskName(taskName: string) {
         await this.fill(this.taskNameInput, taskName);
     }
@@ -79,7 +82,7 @@ export class AddTaskPage extends BasePage {
      */
     async verifyTaskName(taskName: string) {
 
-        await this.expectValue(this.taskNameInput , taskName);
+        await this.expectValue(this.taskNameInput, taskName);
     }
 
     /**
@@ -89,14 +92,14 @@ export class AddTaskPage extends BasePage {
     async fillDescription(description: string) {
         await this.click(this.descriptionInput);
         await this.fill(this.descriptionPlaceholder, description);
-    }   
+    }
 
     /**
      * Verifies the task description matches the expected text.
      * @param description - Expected description text
      */
     async verifyDescription(description: string) {
-        await this.expectToHaveText(this.descriptionPlaceholder , description);
+        await this.expectToHaveText(this.descriptionPlaceholder, description);
     }
 
     // /** Opens the priority dropdown and selects "Normal" priority. */
@@ -118,15 +121,23 @@ export class AddTaskPage extends BasePage {
         await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
     }
 
-     /** Opens the due date picker and selects "Tomorrow" as the due date. */
+    //  /** Opens the due date picker and selects "Tomorrow" as the due date. */
+    // async selectDueDate() {
+    //     await this.click(this.DueDatePicker);
+    //     await this.click(this.DueDatePickerDay);
+    // }
+
+    // /** Verifies the due date field displays the expected selected date. */
+    // async verifyDueDateSelected() {
+    //     await this.expectToHaveText(this.DueDatePicker , taskData.dueDateOptions[1]);
+    // }
+
     async selectDueDate() {
-        await this.click(this.DueDatePicker);
-        await this.click(this.DueDatePickerDay);
+        await this.dueDateDropdown.selectDate(taskData.dueDateOptions[1].value);
     }
 
-    /** Verifies the due date field displays the expected selected date. */
     async verifyDueDateSelected() {
-        await this.expectToHaveText(this.DueDatePicker , taskData.dueDateOptions[1]);
+        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[1].label);
     }
 
     /** Opens the assignee selector and selects the last available user in the list. */
@@ -140,7 +151,7 @@ export class AddTaskPage extends BasePage {
      * @param assigneeName - Expected assignee initial/name
      */
     async verifyAssigneeSelected(assigneeName: string) {
-        await this.expectToHaveText(this.assigeeSelector , assigneeName);
+        await this.expectToHaveText(this.assigeeSelector, assigneeName);
     }
 
     /**
