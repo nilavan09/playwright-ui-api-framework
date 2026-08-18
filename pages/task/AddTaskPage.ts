@@ -19,8 +19,6 @@ export class AddTaskPage extends BasePage {
     private readonly tagsButton: Locator;
     private readonly closeButton: Locator;
     private readonly descriptionPlaceholder: Locator;
-    //private readonly DueDatePicker: Locator;
-    //private readonly DueDatePickerDay: Locator;
     private readonly dueDateDropdown: DueDatePicker;
     private readonly assigeeSelector: Locator;
     private readonly assigneeOption: Locator;
@@ -49,8 +47,6 @@ export class AddTaskPage extends BasePage {
         this.descriptionPlaceholder = page.locator('.ql-block');
         this.priorityDropdown = new PriorityDropdown(page, this.priorityButton);
         this.dueDateDropdown = new DueDatePicker(page, this.dueDateButton)
-        //this.DueDatePicker = page.locator('[data-test="draft-view__due-date"]');
-        //this.DueDatePickerDay = page.locator('[data-test-id="tomorrow"]');
         this.assigeeSelector = page.locator('[data-pendo="quick-create-task-draft-assignee"]');
         this.assigneeOption = page.locator('[class="user-list-item__icon"]').last();
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
@@ -100,42 +96,20 @@ export class AddTaskPage extends BasePage {
      */
     async verifyDescription(description: string) {
         await this.expectToHaveText(this.descriptionPlaceholder, description);
-    }
-
-    // /** Opens the priority dropdown and selects "Normal" priority. */
-    // async selectNormalPriority() {
-    //     await this.click(this.priorityDropdown);
-    //     await this.click(this.highPriorityOption);
-    // }
-
-    // /** Verifies that "Normal" priority is selected and reflected in the dropdown. */
-    // async verifyNormalPrioritySelected() {
-    //     await this.expectToHaveText(this.priorityDropdown , taskData.selectedPriority);
-    // }  
-
+    } 
+    //Selects "Normal" priority using the shared PriorityDropdown component.
     async selectNormalPriority() {
         await this.priorityDropdown.selectPriority(taskData.priorityOptions[0]);
     }
-
+    //Verifies "Normal" priority is selected and reflected in the dropdown. 
     async verifyNormalPrioritySelected() {
         await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
     }
-
-    //  /** Opens the due date picker and selects "Tomorrow" as the due date. */
-    // async selectDueDate() {
-    //     await this.click(this.DueDatePicker);
-    //     await this.click(this.DueDatePickerDay);
-    // }
-
-    // /** Verifies the due date field displays the expected selected date. */
-    // async verifyDueDateSelected() {
-    //     await this.expectToHaveText(this.DueDatePicker , taskData.dueDateOptions[1]);
-    // }
-
+    //Selects the due date using the shared DueDatePicker component.
     async selectDueDate() {
         await this.dueDateDropdown.selectDate(taskData.dueDateOptions[1].value);
     }
-
+    //Verifies the selected due date is reflected correctly in the picker.
     async verifyDueDateSelected() {
         await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[1].label);
     }
