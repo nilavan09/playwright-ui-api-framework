@@ -2,6 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
 import { taskData } from "@data/taskData";
 import { PriorityDropdown } from "@components/PriorityDropdown";
+import { DueDatePicker } from '@components/DueDatePicker';
 
 
 /**
@@ -30,6 +31,7 @@ export class TaskDetailsPage extends BasePage {
     private readonly assigneeDropdownOpener:Locator;
     private readonly selectAssigneeName:Locator;
     private readonly priorityDropdown: PriorityDropdown;
+    private readonly dueDateDropdown: DueDatePicker;
 
     
 
@@ -47,6 +49,7 @@ export class TaskDetailsPage extends BasePage {
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
         this.priorityDropdown = new PriorityDropdown(page,this.priorityButton);
+        this.dueDateDropdown = new DueDatePicker(page, this.dueDateButton);
         // Targets the first block in the rich text description editor
         this.descriptionInput = page.locator('[data-test="task-editor"] .ql-editor');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
@@ -59,16 +62,6 @@ export class TaskDetailsPage extends BasePage {
         
         
     }
-    //dynamic locator method
-    /**
-     * Returns a locator for a quick-select due date option
-     * (e.g., "Today", "Tomorrow", "Next week").
-     * @param label - The visible label of the due date option
-     */
-    private dueDateOption(label: string): Locator {
-        return this.page.getByRole('button', { name: label}).first();
-    }
-
      /**
      * Returns a locator for a status options
      * (e.g., "TO DO", "IN PROGRESS", "COMPLETE").
@@ -105,22 +98,6 @@ export class TaskDetailsPage extends BasePage {
     }
 
     /**
-     * Verifies the task priority matches the expected value.
-     * @param priority - Expected priority (e.g., "Normal", "High")
-     */
-    async verifyPriority(priority: string) {
-        await this.expectToHaveText(this.priorityButton, priority);
-    }
-
-    /**
-     * Verifies the task due date matches the expected value.
-     * @param date - Expected due date (e.g., "Tomorrow")
-     */
-    async verifyDueDate(date: string) {
-        await this.expectToHaveText(this.dueDateButton, date);
-    }
-
-    /**
      * Verifies the task description matches the expected value.
      * @param description - Expected description text
      */
@@ -151,11 +128,11 @@ export class TaskDetailsPage extends BasePage {
         await this.verifyAssignee(taskData.assignee[0])
 
         // Verify the task priority is displayed correctly.
-        await this.verifyPriority(taskData.priorityOptions[0]);
+        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
 
         // Verify the task due date is displayed correctly.
-        await this.verifyDueDate(taskData.dueDateOptions[1]);
-
+        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[1].label);
+    
         // Verify the task description matches the expected content.
         await this.verifyDescription(taskData.taskDescription);
 
@@ -203,42 +180,21 @@ export class TaskDetailsPage extends BasePage {
     async verifyEditedDescripition() {
         await this.verifyDescription(taskData.taskDescriptionEdited);
     }
-
-    /**
-    * Edits the task priority by opening the priority dropdown
-    * and selecting the "Low" priority option.
-    */
-    // async editPriority() {
-    //     await this.priorityButton.click()
-    //     await this.priorityOptionLow.click()
-
-    // }
-
-    // /** Verifies the task priority reflects the updated value. */
-    // async verifyEditedPriority() {
-    //     await this.expectToHaveText(this.priorityButton, taskData.changedPriority)
-    // }
-
+    //Edits the task priority using the shared PriorityDropdown component.
     async editPriority(){
         await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
     }
-
+    //Verifies the task priority reflects the updated value
     async verifyEditedPriority(){
         await this.priorityDropdown.verifyPriority(taskData.priorityOptions[1])
     }
-    /**
-    * Updates the task due date by clearing the existing value
-    * and selecting a new due date from the available options.
-    */
-    async editDueDate(){
-        await this.dueDateButton.click();
-        await this.dateInputClear.click();
-        await this.dueDateOption(taskData.dueDateOptions[0]).click();
+    //Selects the due date using the shared DueDatePicker component
+    async selectDuedate(){
+        await this.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
     }
-    //Verifies the task due date reflects the updated value.
-    async verifyeditedDueDate(){
-        await this.verifyDueDate(taskData.dueDateOptions[0]);
-        
+    //Verifies the selected due date is reflected correctly in the picker
+    async verifyDueDate(){
+        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[0].label);
     }
     /**
     * Edits the task assignee by removing the current assignee

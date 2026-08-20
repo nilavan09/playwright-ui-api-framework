@@ -75,9 +75,9 @@ test('TC_014_verify user can edit task priority', async ({ taskDetailsPage }) =>
 test('TC_015_verify user can edit task duedate', async ({ taskDetailsPage }) => {
 
     // Edit the existing task duedate.
-    await taskDetailsPage.editDueDate();
+    await taskDetailsPage.selectDuedate();
     // Verify updated duedate.
-    await taskDetailsPage.verifyeditedDueDate();
+    await taskDetailsPage.verifyDueDate();
 
 })
 
