@@ -1,5 +1,4 @@
-import { Locator, Page } from "@playwright/test";
-import { BasePage } from "@pages/base/BasePage";
+import { Locator, Page, expect } from "@playwright/test";
 
 /**
  * Reusable component representing a Priority dropdown.
@@ -8,7 +7,7 @@ import { BasePage } from "@pages/base/BasePage";
  * reused across different pages (e.g., AddTaskPage, TaskDetailsPage)
  * wherever a priority selector appears.
  */
-export class PriorityDropdown extends BasePage {
+export class PriorityDropdown {
 
     private readonly dropdown: Locator;
     /**
@@ -16,8 +15,6 @@ export class PriorityDropdown extends BasePage {
      * @param dropdown - Locator for the priority dropdown toggle on the host page.
      */
     constructor(page: Page, dropdown: Locator) {
-        super(page);
-
         this.dropdown = dropdown;
     }
     /**
@@ -25,15 +22,18 @@ export class PriorityDropdown extends BasePage {
      * @param priority - Priority to select (e.g., "High", "Normal", "Low","Urgent")
      */
     async selectPriority(priority: string) {
-        await this.click(this.dropdown);
+        await expect(this.dropdown).toBeVisible();
+        await this.dropdown.click();
         //await this.click(this.page.locator('[data-test="priorities-list__item-High"]'));
-        await this.click(this.page.locator(`[data-test="priorities-list__item-${priority}"]`));
+        const priorityOption = this.dropdown.page().locator(`[data-test="priorities-list__item-${priority}"]`);
+        await expect(priorityOption).toBeVisible();
+        await priorityOption.click();
     }
     /**
      * Verifies the dropdown displays the expected priority.
      * @param priority - Expected priority text
      */
     async verifyPriority(priority: string){
-        await this.expectToContainText(this.dropdown ,priority)
+        await expect(this.dropdown).toContainText(priority);
     }
 }

@@ -15,9 +15,9 @@ import { taskData } from '@data/taskData';
  * so each test starts from a consistent state.
  */
 
-test.beforeEach(async ({ projectBoardPage }) => {
+test.beforeEach(async ({ page,projectBoardPage }) => {
 
-    await projectBoardPage.navigate('/');
+    await page.goto('/');
     await projectBoardPage.openBoardView();
 }); 
 

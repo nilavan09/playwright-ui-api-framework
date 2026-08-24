@@ -1,5 +1,4 @@
-import { Page, Locator } from "@playwright/test";
-import { BasePage } from "@pages/base/BasePage";
+import { Page, Locator,expect } from "@playwright/test";
 import { taskData } from "@data/taskData";
 import { PriorityDropdown } from "@components/PriorityDropdown";
 import { DueDatePicker } from "@components/DueDatePicker";
@@ -10,7 +9,7 @@ import { DueDatePicker } from "@components/DueDatePicker";
  * task name, description, priority, due date, and assignee selection.
  */
 
-export class AddTaskPage extends BasePage {
+export class AddTaskPage {
     // Locators
     private readonly taskNameInput: Locator;
     private readonly descriptionInput: Locator;
@@ -34,9 +33,7 @@ export class AddTaskPage extends BasePage {
 
     // Constructor
     constructor(page: Page) {
-
-        super(page);
-
+        
         this.taskNameInput = page.locator('[data-test="draft-view__title-task"]');
         this.descriptionInput = page.locator('[data-test="prompt-template-empty-description__task-v4-layout"]');
         this.assigneeButton = page.locator('[cupendoid="quick-create-task-draft-assignee"]');
@@ -54,14 +51,14 @@ export class AddTaskPage extends BasePage {
 
     /** Verifies all key fields/buttons in the Add Task dialog are visible. */
     async verifyAddTaskDialog() {
-        await this.expectVisible(this.taskNameInput);
-        await this.expectVisible(this.descriptionInput);
-        await this.expectVisible(this.assigneeButton);
-        await this.expectVisible(this.dueDateButton);
-        await this.expectVisible(this.priorityButton);
-        await this.expectVisible(this.tagsButton);
-        await this.expectVisible(this.createTaskButton);
-        await this.expectVisible(this.closeButton);
+        await expect(this.taskNameInput).toBeVisible();
+        await expect(this.descriptionInput).toBeVisible();
+        await expect(this.assigneeButton).toBeVisible();
+        await expect(this.dueDateButton).toBeVisible();
+        await expect(this.priorityButton).toBeVisible();
+        await expect(this.tagsButton).toBeVisible();
+        await expect(this.createTaskButton).toBeVisible();
+        await expect(this.closeButton).toBeVisible();
     }
 
     /**
@@ -69,7 +66,8 @@ export class AddTaskPage extends BasePage {
     * @param taskName - Name of the task to enter
     */
     async fillTaskName(taskName: string) {
-        await this.fill(this.taskNameInput, taskName);
+        await expect(this.taskNameInput).toBeVisible();
+        await this.taskNameInput.fill(taskName);
     }
 
     /**
@@ -78,7 +76,7 @@ export class AddTaskPage extends BasePage {
      */
     async verifyTaskName(taskName: string) {
 
-        await this.expectValue(this.taskNameInput, taskName);
+        await expect(this.taskNameInput).toHaveValue(taskName);
     }
 
     /**
@@ -86,8 +84,9 @@ export class AddTaskPage extends BasePage {
      * @param description - Description text to enter
      */
     async fillDescription(description: string) {
-        await this.click(this.descriptionInput);
-        await this.fill(this.descriptionPlaceholder, description);
+        await expect(this.descriptionInput).toBeVisible();
+        await this.descriptionInput.click();
+        await this.descriptionPlaceholder.fill(description);
     }
 
     /**
@@ -95,7 +94,7 @@ export class AddTaskPage extends BasePage {
      * @param description - Expected description text
      */
     async verifyDescription(description: string) {
-        await this.expectToHaveText(this.descriptionPlaceholder, description);
+        await expect(this.descriptionPlaceholder).toHaveText(description);
     } 
     //Selects "Normal" priority using the shared PriorityDropdown component.
     async selectNormalPriority() {
@@ -116,8 +115,10 @@ export class AddTaskPage extends BasePage {
 
     /** Opens the assignee selector and selects the last available user in the list. */
     async selectAssignee() {
-        await this.click(this.assigeeSelector);
-        await this.click(this.assigneeOption);
+        await expect(this.assigeeSelector).toBeVisible();
+        await this.assigeeSelector.click();
+        await expect(this.assigneeOption).toBeVisible();
+        await this.assigneeOption.click();
     }
 
     /**
@@ -125,7 +126,7 @@ export class AddTaskPage extends BasePage {
      * @param assigneeName - Expected assignee initial/name
      */
     async verifyAssigneeSelected(assigneeName: string) {
-        await this.expectToHaveText(this.assigeeSelector, assigneeName);
+        await expect(this.assigeeSelector).toHaveText(assigneeName);
     }
 
     /**
@@ -144,7 +145,8 @@ export class AddTaskPage extends BasePage {
         await this.verifyDueDateSelected();
         await this.selectAssignee();
         await this.verifyAssigneeSelected(taskData.assignee[0]);
-        await this.click(this.createTaskButton);
+        await expect(this.createTaskButton).toBeVisible();
+        await this.createTaskButton.click();
     }
 
 }

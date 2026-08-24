@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { BasePage } from '@pages/base/BasePage';
 import { taskData } from "@data/taskData";
 import { PriorityDropdown } from "@components/PriorityDropdown";
 import { DueDatePicker } from '@components/DueDatePicker';
@@ -12,7 +11,9 @@ import { DueDatePicker } from '@components/DueDatePicker';
  * such as title, status, assignee, priority, due date, description,
  * and the activity/history section.
  */
-export class TaskDetailsPage extends BasePage {
+export class TaskDetailsPage  {
+
+    private readonly page: Page;
 
     // ---------------------------------------------------------------------
     // Locators
@@ -40,7 +41,8 @@ export class TaskDetailsPage extends BasePage {
      * @param page - Playwright Page instance
      */
     constructor(page: Page) {
-        super(page);
+        
+        this.page = page;
 
         this.taskTitle = page.getByRole('textbox', { name: 'Edit task name' });
         this.statusButton = page.locator('[data-test="status-button-badge__body"]');
@@ -78,7 +80,7 @@ export class TaskDetailsPage extends BasePage {
      * @param taskName - Expected task name
      */
     async verifyTaskTitle(taskName: string) {
-        await this.expectValue(this.taskTitle, taskName);
+        await expect(this.taskTitle).toHaveValue(taskName);
     }
 
     /**
@@ -86,7 +88,7 @@ export class TaskDetailsPage extends BasePage {
      * @param status - Expected status (e.g., "TO DO", "IN PROGRESS")
      */
     async verifyStatus(status: string) {
-        await this.expectToHaveText(this.statusButton, status);
+        await expect(this.statusButton).toHaveText(status);
     }
 
     /**
@@ -94,7 +96,7 @@ export class TaskDetailsPage extends BasePage {
      * @param assignee - Expected assignee initial/name
      */
     async verifyAssignee(assignee: string) {
-        await this.expectToHaveText(this.assigneeButton, assignee);
+        await expect(this.assigneeButton).toHaveText(assignee);
     }
 
     /**
@@ -102,18 +104,18 @@ export class TaskDetailsPage extends BasePage {
      * @param description - Expected description text
      */
     async verifyDescription(description: string) {
-        await this.expectToHaveText(this.descriptionInput, description);
+        await expect(this.descriptionInput).toHaveText(description);
     }
 
     /** Verifies the activity/history section is visible on the task details page. */
     async verifyActivitySection() {
-        await this.expectVisible(this.activitySection);
+        await expect(this.activitySection).toBeVisible();
     }
 
     /** Closes the task details view. */
     async closeTask() {
-        await this.waitForVisible(this.closeButton)
-        await this.click(this.closeButton);
+        await expect(this.closeButton).toBeVisible();   
+        await this.closeButton.click();
     }
 
     /**Verify task opens and verify detials */
@@ -171,9 +173,7 @@ export class TaskDetailsPage extends BasePage {
 
         // Select existing text
         await this.descriptionInput.press('Control+A');
-
-        // Replace with new text
-        await this.page.keyboard.insertText(taskData.taskDescriptionEdited);
+        await this.descriptionInput.fill(taskData.taskDescriptionEdited);
     }
 
     // Verify Edited description.
@@ -227,7 +227,7 @@ export class TaskDetailsPage extends BasePage {
 
     /** Verifies the Task Details panel is closed (no longer visible). */
     async verifyTaskDetailsClosed() {
-        await this.expectHidden(this.taskTitle);
+        await expect(this.taskTitle).not.toBeVisible();
     }
 
 

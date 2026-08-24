@@ -1,5 +1,4 @@
-import { Locator,Page } from "@playwright/test";
-import { BasePage } from "@pages/base/BasePage";
+import { expect, Locator,Page } from "@playwright/test";
 
 /**
  * Reusable component representing a Due Date picker.
@@ -9,8 +8,9 @@ import { BasePage } from "@pages/base/BasePage";
  * wherever a due date selector appears.
  */
 
-export class DueDatePicker extends BasePage{
+export class DueDatePicker {
 
+    private readonly page:Page;
         private readonly dueDatePicker:Locator;
         /**
          * @param page - Playwright Page instance
@@ -18,7 +18,7 @@ export class DueDatePicker extends BasePage{
          */
         constructor (page:Page,duedate:Locator){
 
-            super(page)
+            this.page=page;
             this.dueDatePicker=duedate;
         }   
         /**
@@ -26,7 +26,7 @@ export class DueDatePicker extends BasePage{
      * @param date - Date identifier to select (e.g., "tomorrow")
      */
     async selectDate(date:string){
-        await this.click(this.dueDatePicker)
+        await this.dueDatePicker.click();
         await this.page.locator(`[data-test-id="${date}"]`).click();
 
     }
@@ -35,7 +35,7 @@ export class DueDatePicker extends BasePage{
      * @param date - Expected date text
      */
     async verifyDate(date:string){
-        await this.expectToContainText(this.dueDatePicker,date);
+        await expect(this.dueDatePicker).toHaveText(date);
     }
 
 }

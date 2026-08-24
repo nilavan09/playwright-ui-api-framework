@@ -1,7 +1,7 @@
 import {Locator , Page} from "@playwright/test";
-import {BasePage} from "../base/BasePage";
 
-export class WorkspacePage extends BasePage {
+
+export class WorkspacePage  {
     
     readonly workspaceToogleButton :Locator
     readonly settingsButton :Locator
@@ -9,7 +9,6 @@ export class WorkspacePage extends BasePage {
     
     
     constructor(page: Page) {
-        super(page);
     
         this.workspaceToogleButton = page.locator('[data-test="workspace-picker-toggle__button"]');
         this.settingsButton = page.getByText("Settings");
@@ -19,17 +18,17 @@ export class WorkspacePage extends BasePage {
     }
 
     async openWorkspaceMenu() {
-        await this.click(this.workspaceToogleButton);
+        await this.workspaceToogleButton.click();
     }
 
     async openSettings() {
         await this.openWorkspaceMenu();
-        await this.click(this.settingsButton.nth(4));
+        await this.settingsButton.nth(4).click();
     }
 
     async openPeople() {
         await this.openWorkspaceMenu();
-        await this.click(this.peopleButton.nth(1));
+        await this.peopleButton.nth(1).click();
     }
 
 }

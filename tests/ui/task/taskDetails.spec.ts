@@ -20,8 +20,8 @@ test.describe("Task Details", () => {
  * Navigates to the home page and opens the Board view
  * so each test starts from a consistent state.
  */
-test.beforeEach(async ({ projectBoardPage }) => {
-    await projectBoardPage.navigate("/");
+test.beforeEach(async ({ page, projectBoardPage }) => {
+    await page.goto("/");
     await projectBoardPage.openBoardView();
     // Open the previously created task from the Board view(TC_010).
     await projectBoardPage.openCreatedTask();
@@ -125,9 +125,9 @@ test("TC_019_Verify user can delete task",
             description: "Task is being deleted"
         }
     },
-    async ({ projectBoardPage }) => {
+    async ({ page, projectBoardPage }) => {
 
-        await projectBoardPage.navigate("/");
+        await page.goto("/");
         await projectBoardPage.openBoardView();
          // Delete the task from the Board view.
         await projectBoardPage.deleteTask();

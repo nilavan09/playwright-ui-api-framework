@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { BasePage } from "@pages/base/BasePage";
 
 /**
  * Page Object representing the Project Board page.
@@ -8,7 +7,7 @@ import { BasePage } from "@pages/base/BasePage";
  * including status columns, toolbar options, and task creation entry point.
  */
 
-export class ProjectBoardPage extends BasePage {
+export class ProjectBoardPage {
 
      // Locators
     private readonly projectName: Locator;
@@ -36,8 +35,6 @@ export class ProjectBoardPage extends BasePage {
     // Constructor
     constructor(page:Page){
 
-        super(page);
-
         this.projectName = page.locator('[data-test="location-editable__location-title"]');
         this.boardView = page.getByText('Board');
         this.todoColumn = page.locator('.cu-status-group-header__label').filter({ hasText: 'TO DO' });
@@ -61,47 +58,47 @@ export class ProjectBoardPage extends BasePage {
 
     /** Switches the current view to Board view. */
      async openBoardView(){
-        await this.click(this.boardView);
+        await this.boardView.click();
     }
    /** Opens the Add Task dialog by clicking the Create Task button. */ 
     async clickAddTask() {
-    await this.click(this.addTaskButton);
+    await this.addTaskButton.click();
     }
 
     //Verifications
     /** Verifies the project name/title is visible on the Board page. */
     async verifyProjectName(){
-        await this.expectVisible(this.projectName);
+        await expect(this.projectName).toBeVisible();
     }
     /** Verifies that To Do, In Progress, and Complete status columns are visible. */
     async verifyStatusColumns(){
-        await this.expectVisible(this.todoColumn);
-        await this.expectVisible(this.inProgressColumn);
-        await this.expectVisible(this.completeColumn);
+        await expect(this.todoColumn).toBeVisible();
+        await expect(this.inProgressColumn).toBeVisible();
+        await expect(this.completeColumn).toBeVisible();
     }
     /** Verifies that all toolbar options (Sort, Filter, Assignee, Task Filter, Search, Customize) are visible. */
     async verifyToolBarOptions(){
-        await this.expectVisible(this.sortButton);
-        await this.expectVisible(this.filterButton);
-        await this.expectVisible(this.AssigneeButton);
-        await this.expectVisible(this.taskFilterButton);
-        await this.expectVisible(this.searchButton);
-        await this.expectVisible(this.customizeButton);
+        await expect(this.sortButton).toBeVisible();
+        await expect(this.filterButton).toBeVisible();
+        await expect(this.AssigneeButton).toBeVisible();
+        await expect(this.taskFilterButton).toBeVisible();
+        await expect(this.searchButton).toBeVisible();
+        await expect(this.customizeButton).toBeVisible();
     }    
     /** Verifies the Create Task button is visible and enabled. */
     async verifyCreateTaskButton() {
-        await this.expectVisible(this.addTaskButton);
-        await this.toBeEnabled(this.addTaskButton);
+        await expect(this.addTaskButton).toBeVisible();
+        await expect(this.addTaskButton).toBeEnabled();
 
     }
     /** Verifies that the newly created task is visible in the task list. */
     async verifyCreatedTask() {
-        await this.expectVisible(this.createdTask);
+        await expect(this.createdTask).toBeVisible();
     }
 
     /** Opens the newly created task by clicking on it. */
     async openCreatedTask() {
-        await this.click(this.createdTask);
+        await this.createdTask.click();
     }
 
     // Delete created task.
@@ -113,7 +110,7 @@ export class ProjectBoardPage extends BasePage {
 
     // verify Deleted task is not visible on the board.
     async verifydeletedTask(){
-        await this.expectHidden(this.createdTask)
+        await expect(this.createdTask).not.toBeVisible();
     }
 
 }
