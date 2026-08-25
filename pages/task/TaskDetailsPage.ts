@@ -18,13 +18,13 @@ export class TaskDetailsPage  {
     // ---------------------------------------------------------------------
     // Locators
     // ---------------------------------------------------------------------
-    private readonly taskTitle: Locator;
-    private readonly statusButton: Locator;
-    private readonly assigneeButton: Locator;
-    private readonly priorityButton: Locator;
-    private readonly dueDateButton: Locator;
-    private readonly descriptionInput: Locator;
-    private readonly activitySection: Locator;
+    readonly taskTitle: Locator;
+    readonly statusButton: Locator;
+    readonly assigneeButton: Locator;
+    readonly priorityButton: Locator;
+    readonly dueDateButton: Locator;
+    readonly descriptionInput: Locator;
+    readonly activitySection: Locator;
     private readonly closeButton: Locator;
     private readonly taskEditor: Locator;
     private readonly dateInputClear:Locator;
@@ -75,72 +75,12 @@ export class TaskDetailsPage  {
 
     }
 
-    /**
-     * Verifies the task title matches the expected value.
-     * @param taskName - Expected task name
-     */
-    async verifyTaskTitle(taskName: string) {
-        await expect(this.taskTitle).toHaveValue(taskName);
-    }
-
-    /**
-     * Verifies the task status matches the expected value.
-     * @param status - Expected status (e.g., "TO DO", "IN PROGRESS")
-     */
-    async verifyStatus(status: string) {
-        await expect(this.statusButton).toHaveText(status);
-    }
-
-    /**
-     * Verifies the task assignee matches the expected value.
-     * @param assignee - Expected assignee initial/name
-     */
-    async verifyAssignee(assignee: string) {
-        await expect(this.assigneeButton).toHaveText(assignee);
-    }
-
-    /**
-     * Verifies the task description matches the expected value.
-     * @param description - Expected description text
-     */
-    async verifyDescription(description: string) {
-        await expect(this.descriptionInput).toHaveText(description);
-    }
-
-    /** Verifies the activity/history section is visible on the task details page. */
-    async verifyActivitySection() {
-        await expect(this.activitySection).toBeVisible();
-    }
-
     /** Closes the task details view. */
     async closeTask() {
         await expect(this.closeButton).toBeVisible();   
         await this.closeButton.click();
     }
 
-    /**Verify task opens and verify detials */
-    async verifyTaskDetails() {
-        // Verify the task title matches the expected task name.
-        await this.verifyTaskTitle(taskData.taskName);
-
-        // Verify the task status is displayed correctly.
-        await this.verifyStatus(taskData.statusOptions[0]);
-
-        // verify the assignee is displayed correctly.
-        await this.verifyAssignee(taskData.assignee[0])
-
-        // Verify the task priority is displayed correctly.
-        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
-
-        // Verify the task due date is displayed correctly.
-        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[1].label);
-    
-        // Verify the task description matches the expected content.
-        await this.verifyDescription(taskData.taskDescription);
-
-        // Verify the activity/history section is visible on the task details page.
-        await this.verifyActivitySection();
-    }
     /**
     * Edits the task title by clearing the existing value
     * and typing the new task name from test data.
@@ -149,11 +89,6 @@ export class TaskDetailsPage  {
         await this.taskTitle.click();
         await this.taskTitle.clear();
         await this.taskTitle.pressSequentially(taskData.taskNameEdit);
-    }
-
-    /** Verifies the task title reflects the edited value. */
-    async verifyEditedTask() {
-        await this.verifyTaskTitle(taskData.taskNameEdit);
     }
 
     /**
@@ -176,26 +111,16 @@ export class TaskDetailsPage  {
         await this.descriptionInput.fill(taskData.taskDescriptionEdited);
     }
 
-    // Verify Edited description.
-    async verifyEditedDescripition() {
-        await this.verifyDescription(taskData.taskDescriptionEdited);
-    }
     //Edits the task priority using the shared PriorityDropdown component.
     async editPriority(){
         await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
     }
-    //Verifies the task priority reflects the updated value
-    async verifyEditedPriority(){
-        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[1])
-    }
+
     //Selects the due date using the shared DueDatePicker component
     async selectDuedate(){
         await this.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
     }
-    //Verifies the selected due date is reflected correctly in the picker
-    async verifyDueDate(){
-        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[0].label);
-    }
+
     /**
     * Edits the task assignee by removing the current assignee
     * and selecting a new one from the assignee dropdown.
@@ -206,10 +131,6 @@ export class TaskDetailsPage  {
         await this.assigneeDropdownOpener.click();
         await this.selectAssigneeName.click();
     }
-    //Verifies the task assignee reflects the updated value. 
-    async verifyEditedAsssignee(){
-        await this.verifyAssignee(taskData.assignee[1]);
-    }
 
     /**
     * Edits the task status by removing the current status.
@@ -219,15 +140,6 @@ export class TaskDetailsPage  {
         await this.statusButton.click();
         await this.statusoptions(taskData.statusOptions[1]).click();
 
-    }
-    //Verifies the task status reflects the updated value. 
-    async verifyEditedStatus(){
-        await this.verifyStatus(taskData.statusOptions[1]);
-    }
-
-    /** Verifies the Task Details panel is closed (no longer visible). */
-    async verifyTaskDetailsClosed() {
-        await expect(this.taskTitle).not.toBeVisible();
     }
 
 

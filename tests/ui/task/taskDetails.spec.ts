@@ -1,4 +1,5 @@
-import { test } from "@fixtures/pagesFixture";
+import { taskData } from "@data/taskData";
+import { expect, test } from "@fixtures/pagesFixture";
 
 /**
  * Test Suite: Task Details Page
@@ -42,8 +43,20 @@ test.afterEach(async ({ taskDetailsPage }, testInfo) => {
 test("TC_011_Verify Task Details page opens", async ({ taskDetailsPage }) => {
 
     //verify task opens and showing detials.
-    await taskDetailsPage.verifyTaskDetails();
-
+    //Verify the task title matches the expected task name.
+    await expect(taskDetailsPage.taskTitle).toHaveValue(taskData.taskName);
+    //Verify the task status is displayed correctly.
+    await expect(taskDetailsPage.statusButton).toHaveText(taskData.statusOptions[0]);
+    //Verify the task assignee is displayed correctly.
+    await expect(taskDetailsPage.assigneeButton).toHaveText(taskData.assignee[0]);
+    //Verify the task priority is displayed correctly.
+    await expect(taskDetailsPage.priorityButton).toHaveText(taskData.priorityOptions[0]);
+    //Verify the task due date is displayed correctly.
+    await expect(taskDetailsPage.dueDateButton).toHaveText(taskData.dueDateOptions[1].label);
+    //Verify the task description is displayed correctly.
+    await expect(taskDetailsPage.descriptionInput).toHaveText(taskData.taskDescription);
+    //Verify the activity/history section is visible on the task details page.
+    await expect(taskDetailsPage.activitySection).toBeVisible();
 });
 
 test('TC_012_verify user can edit task title', async ({ taskDetailsPage }) => {
@@ -52,7 +65,7 @@ test('TC_012_verify user can edit task title', async ({ taskDetailsPage }) => {
     await taskDetailsPage.editTask();
 
     // verify edited task name
-    await taskDetailsPage.verifyEditedTask();
+    await expect(taskDetailsPage.taskTitle).toHaveValue(taskData.taskNameEdit);
 
 })
 
@@ -61,7 +74,7 @@ test('TC_013_verify user can edit task description', async ({ taskDetailsPage })
     // Edit the existing task.
     await taskDetailsPage.editDescription();
     // Verify updated Description.
-    await taskDetailsPage.verifyEditedDescripition();
+    await expect(taskDetailsPage.descriptionInput).toHaveText(taskData.taskDescriptionEdited);
 })
 
 test('TC_014_verify user can edit task priority', async ({ taskDetailsPage }) => {
@@ -69,7 +82,7 @@ test('TC_014_verify user can edit task priority', async ({ taskDetailsPage }) =>
     // Edit the existing task priority.
     await taskDetailsPage.editPriority();
     // Verify updated priority.
-    await taskDetailsPage.verifyEditedPriority();
+    await expect(taskDetailsPage.priorityButton).toHaveText(taskData.priorityOptions[1]);
 })
 
 test('TC_015_verify user can edit task duedate', async ({ taskDetailsPage }) => {
@@ -77,7 +90,7 @@ test('TC_015_verify user can edit task duedate', async ({ taskDetailsPage }) => 
     // Edit the existing task duedate.
     await taskDetailsPage.selectDuedate();
     // Verify updated duedate.
-    await taskDetailsPage.verifyDueDate();
+    await expect(taskDetailsPage.dueDateButton).toHaveText(taskData.dueDateOptions[0].label);
 
 })
 
@@ -86,7 +99,7 @@ test('TC_016_verify user can edit task asignee', async ({ taskDetailsPage }) => 
     // Edit the existing task's assignee..
     await taskDetailsPage.editAssignee();
     // Verify the updated assignee.
-    await taskDetailsPage.verifyEditedAsssignee();
+    await expect(taskDetailsPage.assigneeButton).toHaveText(taskData.assignee[1]);
 
 })
 
@@ -95,7 +108,7 @@ test('TC_017_verify user can edit task status', async ({ taskDetailsPage }) => {
     // Edit the existing task's status.
     await taskDetailsPage.editStatus();
     // Verify the updated task status.
-    await taskDetailsPage.verifyEditedStatus();
+    await expect(taskDetailsPage.statusButton).toHaveText(taskData.statusOptions[1]);
 
 })
 
@@ -105,7 +118,7 @@ test('TC_018_verify user can close task detials', {annotation: {type: "skipClean
         await taskDetailsPage.closeTask();
 
         // Verify the updated task status.
-        await taskDetailsPage.verifyTaskDetailsClosed();
+        await expect(taskDetailsPage.taskTitle).not.toBeVisible();
     }
 );
 

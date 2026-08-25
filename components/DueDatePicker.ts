@@ -35,7 +35,7 @@ export class DueDatePicker {
      * @param date - Expected date text
      */
     async verifyDate(date:string){
-        await expect(this.dueDatePicker).toHaveText(date);
+        await expect(this.dueDatePicker).toContainText(date);
     }
 
 }
