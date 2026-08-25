@@ -49,26 +49,6 @@ export class AddTaskPage {
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
     }
 
-
-    /**
-    * Fills the task name input field.
-    * @param taskName - Name of the task to enter
-    */
-    async fillTaskName(taskName: string) {
-        await expect(this.taskNameInput).toBeVisible();
-        await this.taskNameInput.fill(taskName);
-    }
-
-    /**
-     * Fills the task description field.
-     * @param description - Description text to enter
-     */
-    async fillDescription(description: string) {
-        await expect(this.descriptionInput).toBeVisible();
-        await this.descriptionInput.click();
-        await this.descriptionPlaceholder.fill(description);
-    }
-
     //Selects "Normal" priority using the shared PriorityDropdown component.
     async selectNormalPriority() {
         await this.priorityDropdown.selectPriority(taskData.priorityOptions[0]);
@@ -95,9 +75,10 @@ export class AddTaskPage {
     async createTask() {
         //Fill all required fields using centralized test data and submit the task.
         //fill task name
-        await this.fillTaskName(taskData.taskName);
+        await this.taskNameInput.fill(taskData.taskName);
         //fill task description
-        await this.fillDescription(taskData.taskDescription);
+        await this.descriptionInput.click();
+        await this.descriptionPlaceholder.fill(taskData.taskDescription);
         //select priority
         await this.selectNormalPriority();
         //select due date

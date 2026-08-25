@@ -25,14 +25,14 @@ export class TaskDetailsPage  {
     readonly dueDateButton: Locator;
     readonly descriptionInput: Locator;
     readonly activitySection: Locator;
-    private readonly closeButton: Locator;
+    readonly closeButton: Locator;
     private readonly taskEditor: Locator;
     private readonly dateInputClear:Locator;
     private readonly removeAssignee:Locator;
     private readonly assigneeDropdownOpener:Locator;
     private readonly selectAssigneeName:Locator;
-    private readonly priorityDropdown: PriorityDropdown;
-    private readonly dueDateDropdown: DueDatePicker;
+    readonly priorityDropdown: PriorityDropdown;
+    readonly dueDateDropdown: DueDatePicker;
 
     
 
@@ -75,12 +75,6 @@ export class TaskDetailsPage  {
 
     }
 
-    /** Closes the task details view. */
-    async closeTask() {
-        await expect(this.closeButton).toBeVisible();   
-        await this.closeButton.click();
-    }
-
     /**
     * Edits the task title by clearing the existing value
     * and typing the new task name from test data.
@@ -111,15 +105,15 @@ export class TaskDetailsPage  {
         await this.descriptionInput.fill(taskData.taskDescriptionEdited);
     }
 
-    //Edits the task priority using the shared PriorityDropdown component.
-    async editPriority(){
-        await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
-    }
+    // //Edits the task priority using the shared PriorityDropdown component.
+    // async editPriority(){
+    //     await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
+    // }
 
-    //Selects the due date using the shared DueDatePicker component
-    async selectDuedate(){
-        await this.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
-    }
+    // //Selects the due date using the shared DueDatePicker component
+    // async selectDuedate(){
+    //     await this.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
+    // }
 
     /**
     * Edits the task assignee by removing the current assignee

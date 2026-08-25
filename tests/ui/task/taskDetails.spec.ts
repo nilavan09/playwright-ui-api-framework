@@ -37,7 +37,7 @@ test.afterEach(async ({ taskDetailsPage }, testInfo) => {
         return;
     }
 
-    await taskDetailsPage.closeTask();
+    await taskDetailsPage.closeButton.click();
 });
 
 test("TC_011_Verify Task Details page opens", async ({ taskDetailsPage }) => {
@@ -67,7 +67,7 @@ test('TC_012_verify user can edit task title', async ({ taskDetailsPage }) => {
     // verify edited task name
     await expect(taskDetailsPage.taskTitle).toHaveValue(taskData.taskNameEdit);
 
-})
+});
 
 test('TC_013_verify user can edit task description', async ({ taskDetailsPage }) => {
 
@@ -75,24 +75,28 @@ test('TC_013_verify user can edit task description', async ({ taskDetailsPage })
     await taskDetailsPage.editDescription();
     // Verify updated Description.
     await expect(taskDetailsPage.descriptionInput).toHaveText(taskData.taskDescriptionEdited);
-})
+});
 
 test('TC_014_verify user can edit task priority', async ({ taskDetailsPage }) => {
 
     // Edit the existing task priority.
-    await taskDetailsPage.editPriority();
+    await taskDetailsPage.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
     // Verify updated priority.
-    await expect(taskDetailsPage.priorityButton).toHaveText(taskData.priorityOptions[1]);
-})
+    await taskDetailsPage.priorityDropdown.verifyPriority(taskData.priorityOptions[1]);
+    
+
+});
 
 test('TC_015_verify user can edit task duedate', async ({ taskDetailsPage }) => {
 
     // Edit the existing task duedate.
-    await taskDetailsPage.selectDuedate();
+    await taskDetailsPage.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
     // Verify updated duedate.
-    await expect(taskDetailsPage.dueDateButton).toHaveText(taskData.dueDateOptions[0].label);
+    await taskDetailsPage.dueDateDropdown.verifyDate(taskData.dueDateOptions[0].label);
+    
+    
 
-})
+});
 
 test('TC_016_verify user can edit task asignee', async ({ taskDetailsPage }) => {
 
@@ -101,7 +105,7 @@ test('TC_016_verify user can edit task asignee', async ({ taskDetailsPage }) => 
     // Verify the updated assignee.
     await expect(taskDetailsPage.assigneeButton).toHaveText(taskData.assignee[1]);
 
-})
+});
 
 test('TC_017_verify user can edit task status', async ({ taskDetailsPage }) => {
 
@@ -110,12 +114,12 @@ test('TC_017_verify user can edit task status', async ({ taskDetailsPage }) => {
     // Verify the updated task status.
     await expect(taskDetailsPage.statusButton).toHaveText(taskData.statusOptions[1]);
 
-})
+});
 
 test('TC_018_verify user can close task detials', {annotation: {type: "skipCleanup",description: "Close task is being tested"}},async ({ taskDetailsPage }) => {
 
         // close the existing task.
-        await taskDetailsPage.closeTask();
+        await taskDetailsPage.closeButton.click();
 
         // Verify the updated task status.
         await expect(taskDetailsPage.taskTitle).not.toBeVisible();

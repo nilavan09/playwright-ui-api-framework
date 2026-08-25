@@ -68,7 +68,8 @@ test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async (
 test('TC_005_Verify user can enter task name', async ({ projectBoardPage,addTaskPage }) => {
     await projectBoardPage.clickAddTask();
     // Enter task name and verify it reflects correctly in the input field.
-    await addTaskPage.fillTaskName(taskData.taskName);
+    //await addTaskPage.fillTaskName(taskData.taskName);
+    await addTaskPage.taskNameInput.fill(taskData.taskName);
     await expect(addTaskPage.taskNameInput).toHaveValue(taskData.taskName);
     //await addTaskPage.verifyTaskName(taskData.taskName);
 });
@@ -77,7 +78,9 @@ test('TC_006_Verify user can enter task description', async ({ projectBoardPage,
 
     await projectBoardPage.clickAddTask();
     // Enter task description using centralized test data and verify it's saved correctly.
-    await addTaskPage.fillDescription(taskData.taskDescription);
+    //await addTaskPage.fillDescription(taskData.taskDescription);
+    await addTaskPage.descriptionInput.click(); 
+    await addTaskPage.descriptionPlaceholder.fill(taskData.taskDescription);
     await expect(addTaskPage.descriptionPlaceholder).toHaveText(taskData.taskDescription);
 });
 
