@@ -145,7 +145,7 @@ test("TC_019_Verify user can delete task",
          // Delete the task from the Board view.
         await projectBoardPage.deleteTask();
         // Verify the task no longer appears on the Board.
-        await projectBoardPage.verifydeletedTask();
+        await expect(projectBoardPage.createdTask).not.toBeVisible();
     }   
 );
 

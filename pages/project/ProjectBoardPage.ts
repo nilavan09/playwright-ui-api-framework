@@ -10,19 +10,23 @@ import { Locator, Page, expect } from "@playwright/test";
 export class ProjectBoardPage {
 
      // Locators
-    private readonly projectName: Locator;
+    readonly projectName: Locator;
     private readonly boardView: Locator;
-    private readonly todoColumn: Locator;
-    private readonly inProgressColumn: Locator;
-    private readonly completeColumn: Locator;
-    private readonly sortButton: Locator; 
-    private readonly filterButton: Locator;
-    private readonly AssigneeButton: Locator;
-    private readonly taskFilterButton: Locator; 
-    private readonly searchButton: Locator;
-    private readonly customizeButton: Locator;
+
+    readonly todoColumn: Locator;
+    readonly inProgressColumn: Locator;
+    readonly completeColumn: Locator;
+
+    readonly sortButton: Locator; 
+    readonly filterButton: Locator;
+    readonly assigneeButton: Locator;
+    readonly taskFilterButton: Locator; 
+    readonly searchButton: Locator;
+    readonly customizeButton: Locator;
+
     private readonly addTaskButton: Locator;
-    private readonly createdTask: Locator;
+    readonly createdTask: Locator;
+
     private readonly moreButton: Locator;
     private readonly deleteButton: Locator;
 
@@ -42,7 +46,7 @@ export class ProjectBoardPage {
         this.completeColumn = page.locator('.cu-status-group-header__label').filter({ hasText: 'COMPLETE' });
         this.sortButton = page.getByRole('button',{name:"Sort"});
         this.filterButton = page.getByRole('button',{name:"Filter"}).first();
-        this.AssigneeButton = page.getByRole('button',{name:"Assignee"}).nth(2);
+        this.assigneeButton = page.getByRole('button',{name:"Assignee"}).nth(2);
         this.taskFilterButton = page.locator('[data-test="me-mode-avatar-toggle"]');
         this.searchButton = page.locator('.view-filter-search__toggle');
         this.addTaskButton = page.locator('[data-test="cu2-views-bar__create-menu-view-bar-collapsed"]');
@@ -65,36 +69,36 @@ export class ProjectBoardPage {
     await this.addTaskButton.click();
     }
 
-    //Verifications
-    /** Verifies the project name/title is visible on the Board page. */
-    async verifyProjectName(){
-        await expect(this.projectName).toBeVisible();
-    }
-    /** Verifies that To Do, In Progress, and Complete status columns are visible. */
-    async verifyStatusColumns(){
-        await expect(this.todoColumn).toBeVisible();
-        await expect(this.inProgressColumn).toBeVisible();
-        await expect(this.completeColumn).toBeVisible();
-    }
-    /** Verifies that all toolbar options (Sort, Filter, Assignee, Task Filter, Search, Customize) are visible. */
-    async verifyToolBarOptions(){
-        await expect(this.sortButton).toBeVisible();
-        await expect(this.filterButton).toBeVisible();
-        await expect(this.AssigneeButton).toBeVisible();
-        await expect(this.taskFilterButton).toBeVisible();
-        await expect(this.searchButton).toBeVisible();
-        await expect(this.customizeButton).toBeVisible();
-    }    
+    // //Verifications
+    // /** Verifies the project name/title is visible on the Board page. */
+    // async verifyProjectName(){
+    //     await expect(this.projectName).toBeVisible();
+    // }
+    // /** Verifies that To Do, In Progress, and Complete status columns are visible. */
+    // async verifyStatusColumns(){
+    //     await expect(this.todoColumn).toBeVisible();
+    //     await expect(this.inProgressColumn).toBeVisible();
+    //     await expect(this.completeColumn).toBeVisible();
+    // }
+    // /** Verifies that all toolbar options (Sort, Filter, Assignee, Task Filter, Search, Customize) are visible. */
+    // async verifyToolBarOptions(){
+    //     await expect(this.sortButton).toBeVisible();
+    //     await expect(this.filterButton).toBeVisible();
+    //     await expect(this.AssigneeButton).toBeVisible();
+    //     await expect(this.taskFilterButton).toBeVisible();
+    //     await expect(this.searchButton).toBeVisible();
+    //     await expect(this.customizeButton).toBeVisible();
+    // }    
     /** Verifies the Create Task button is visible and enabled. */
     async verifyCreateTaskButton() {
         await expect(this.addTaskButton).toBeVisible();
         await expect(this.addTaskButton).toBeEnabled();
 
     }
-    /** Verifies that the newly created task is visible in the task list. */
-    async verifyCreatedTask() {
-        await expect(this.createdTask).toBeVisible();
-    }
+    // /** Verifies that the newly created task is visible in the task list. */
+    // async verifyCreatedTask() {
+    //     await expect(this.createdTask).toBeVisible();
+    // }
 
     /** Opens the newly created task by clicking on it. */
     async openCreatedTask() {
@@ -108,9 +112,9 @@ export class ProjectBoardPage {
         await this.deleteButton.click();
     }
 
-    // verify Deleted task is not visible on the board.
-    async verifydeletedTask(){
-        await expect(this.createdTask).not.toBeVisible();
-    }
+    // // verify Deleted task is not visible on the board.
+    // async verifydeletedTask(){
+    //     await expect(this.createdTask).not.toBeVisible();
+    // }
 
 }

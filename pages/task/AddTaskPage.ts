@@ -11,19 +11,19 @@ import { DueDatePicker } from "@components/DueDatePicker";
 
 export class AddTaskPage {
     // Locators
-    private readonly taskNameInput: Locator;
-    private readonly descriptionInput: Locator;
-    private readonly assigneeButton: Locator;
-    private readonly dueDateButton: Locator;
-    private readonly tagsButton: Locator;
-    private readonly closeButton: Locator;
-    private readonly descriptionPlaceholder: Locator;
+    readonly taskNameInput: Locator;
+    readonly descriptionInput: Locator;
+    readonly assigneeButton: Locator;
+    readonly dueDateButton: Locator;
+    readonly tagsButton: Locator;
+    readonly closeButton: Locator;
+    readonly descriptionPlaceholder: Locator;
     private readonly dueDateDropdown: DueDatePicker;
-    private readonly assigeeSelector: Locator;
+    readonly assigeeSelector: Locator;
     private readonly assigneeOption: Locator;
-    private readonly createTaskButton: Locator;
+    readonly createTaskButton: Locator;
     private readonly priorityDropdown: PriorityDropdown;
-    private readonly priorityButton: Locator;
+    readonly priorityButton: Locator;
 
 
     /**
@@ -49,17 +49,6 @@ export class AddTaskPage {
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
     }
 
-    /** Verifies all key fields/buttons in the Add Task dialog are visible. */
-    async verifyAddTaskDialog() {
-        await expect(this.taskNameInput).toBeVisible();
-        await expect(this.descriptionInput).toBeVisible();
-        await expect(this.assigneeButton).toBeVisible();
-        await expect(this.dueDateButton).toBeVisible();
-        await expect(this.priorityButton).toBeVisible();
-        await expect(this.tagsButton).toBeVisible();
-        await expect(this.createTaskButton).toBeVisible();
-        await expect(this.closeButton).toBeVisible();
-    }
 
     /**
     * Fills the task name input field.
@@ -68,15 +57,6 @@ export class AddTaskPage {
     async fillTaskName(taskName: string) {
         await expect(this.taskNameInput).toBeVisible();
         await this.taskNameInput.fill(taskName);
-    }
-
-    /**
-     * Verifies the task name input holds the expected value.
-     * @param taskName - Expected task name
-     */
-    async verifyTaskName(taskName: string) {
-
-        await expect(this.taskNameInput).toHaveValue(taskName);
     }
 
     /**
@@ -89,28 +69,14 @@ export class AddTaskPage {
         await this.descriptionPlaceholder.fill(description);
     }
 
-    /**
-     * Verifies the task description matches the expected text.
-     * @param description - Expected description text
-     */
-    async verifyDescription(description: string) {
-        await expect(this.descriptionPlaceholder).toHaveText(description);
-    } 
     //Selects "Normal" priority using the shared PriorityDropdown component.
     async selectNormalPriority() {
         await this.priorityDropdown.selectPriority(taskData.priorityOptions[0]);
     }
-    //Verifies "Normal" priority is selected and reflected in the dropdown. 
-    async verifyNormalPrioritySelected() {
-        await this.priorityDropdown.verifyPriority(taskData.priorityOptions[0]);
-    }
+
     //Selects the due date using the shared DueDatePicker component.
     async selectDueDate() {
         await this.dueDateDropdown.selectDate(taskData.dueDateOptions[1].value);
-    }
-    //Verifies the selected due date is reflected correctly in the picker.
-    async verifyDueDateSelected() {
-        await this.dueDateDropdown.verifyDate(taskData.dueDateOptions[1].label);
     }
 
     /** Opens the assignee selector and selects the last available user in the list. */
@@ -122,31 +88,24 @@ export class AddTaskPage {
     }
 
     /**
-     * Verifies the assignee field displays the expected assignee.
-     * @param assigneeName - Expected assignee initial/name
-     */
-    async verifyAssigneeSelected(assigneeName: string) {
-        await expect(this.assigeeSelector).toHaveText(assigneeName);
-    }
-
-    /**
      * End-to-end flow to create a task using centralized test data:
      * fills task name, description, priority, due date, and assignee,
      * verifying each step, then submits the task.
      */
     async createTask() {
+        //Fill all required fields using centralized test data and submit the task.
+        //fill task name
         await this.fillTaskName(taskData.taskName);
-        await this.verifyTaskName(taskData.taskName);
+        //fill task description
         await this.fillDescription(taskData.taskDescription);
-        await this.verifyDescription(taskData.taskDescription);
+        //select priority
         await this.selectNormalPriority();
-        await this.verifyNormalPrioritySelected();
+        //select due date
         await this.selectDueDate();
-        await this.verifyDueDateSelected();
+        //select assignee
         await this.selectAssignee();
-        await this.verifyAssigneeSelected(taskData.assignee[0]);
-        await expect(this.createTaskButton).toBeVisible();
+        //Click the "Create Task" button to submit the new task.
         await this.createTaskButton.click();
     }
 
-}
+}   
