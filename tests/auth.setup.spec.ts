@@ -36,13 +36,13 @@ setup('authenticate clickup user', async ({ page }) => {
 
     const loginPage = new LoginPage(page);
 
-    await loginPage.open();
+    await page.goto(process.env.BASE_URL + '/login');
 
-    await loginPage.enterEmail(loginData.validUser.email);
+    await loginPage.emailInput.fill(loginData.validUser.email);
 
-    await loginPage.enterPassword(loginData.validUser.password);
+    await loginPage.passwordInput.fill(loginData.validUser.password);
 
-    await loginPage.clickLogin();
+    await loginPage.loginButton.click();
 
 
     // Wait until login is completed

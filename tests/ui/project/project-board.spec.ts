@@ -18,7 +18,7 @@ import { taskData } from '@data/taskData';
 test.beforeEach(async ({ page,projectBoardPage }) => {
 
     await page.goto('/');
-    await projectBoardPage.openBoardView();
+    await projectBoardPage.boardView.click();
 }); 
 
 
@@ -46,14 +46,15 @@ test('TC_002_Verify Project Board toolbar is displayed',async ({projectBoardPage
 
 test('TC_003_Verify "Create Task" button is displayed',async ({projectBoardPage})=>{
     // Verify Create Task button is visible and enabled.
-    await projectBoardPage.verifyCreateTaskButton();
+    await expect(projectBoardPage.addTaskButton).toBeVisible();
+    await expect(projectBoardPage.addTaskButton).toBeEnabled();
 })
 
 // Add Task Dialog - Field Level Verification
 
 test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async ({projectBoardPage,addTaskPage})=>{
     // Verify all required fields/buttons are present in the Add Task dialog.
-    await projectBoardPage.clickAddTask();
+    await projectBoardPage.addTaskButton.click();
     await expect(addTaskPage.taskNameInput).toBeVisible();
     await expect(addTaskPage.descriptionInput).toBeVisible();
     await expect(addTaskPage.assigneeButton).toBeVisible();
@@ -66,19 +67,16 @@ test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async (
 });
 
 test('TC_005_Verify user can enter task name', async ({ projectBoardPage,addTaskPage }) => {
-    await projectBoardPage.clickAddTask();
+    await projectBoardPage.addTaskButton.click();
     // Enter task name and verify it reflects correctly in the input field.
-    //await addTaskPage.fillTaskName(taskData.taskName);
     await addTaskPage.taskNameInput.fill(taskData.taskName);
     await expect(addTaskPage.taskNameInput).toHaveValue(taskData.taskName);
-    //await addTaskPage.verifyTaskName(taskData.taskName);
 });
 
 test('TC_006_Verify user can enter task description', async ({ projectBoardPage,addTaskPage }) => {
 
-    await projectBoardPage.clickAddTask();
+    await projectBoardPage.addTaskButton.click();
     // Enter task description using centralized test data and verify it's saved correctly.
-    //await addTaskPage.fillDescription(taskData.taskDescription);
     await addTaskPage.descriptionInput.click(); 
     await addTaskPage.descriptionPlaceholder.fill(taskData.taskDescription);
     await expect(addTaskPage.descriptionPlaceholder).toHaveText(taskData.taskDescription);
@@ -86,23 +84,23 @@ test('TC_006_Verify user can enter task description', async ({ projectBoardPage,
 
 test('TC_007_Verify user can enter select Priority', async ({ projectBoardPage,addTaskPage }) => {
 
-    await projectBoardPage.clickAddTask();
+    await projectBoardPage.addTaskButton.click();
     // Select "Normal" priority from dropdown and verify selection is reflected.
-    await addTaskPage.selectNormalPriority();
+    await addTaskPage.priorityDropdown.selectPriority(taskData.priorityOptions[0]);
     await expect(addTaskPage.priorityButton).toContainText(taskData.priorityOptions[0]);
 });
 
 test('TC_008_Verify user can select Due Date', async ({ projectBoardPage,addTaskPage }) => {
 
-    await projectBoardPage.clickAddTask();  
+    await projectBoardPage.addTaskButton.click();
     // Select "Tomorrow" as due date and verify it's applied.
-    await addTaskPage.selectDueDate();
+    await addTaskPage.dueDateDropdown.selectDate(taskData.dueDateOptions[1].value);
     await expect(addTaskPage.dueDateButton).toHaveText(taskData.dueDateOptions[1].label);
 });
 
 test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTaskPage }) => {
 
-    await projectBoardPage.clickAddTask();  
+    await projectBoardPage.addTaskButton.click();
     // Select assignee from dropdown and verify correct user initial is displayed.
     await addTaskPage.selectAssignee();
     await expect(addTaskPage.assigeeSelector).toHaveText(taskData.assignee[0]);
@@ -112,7 +110,7 @@ test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTask
 
 test('TC_010_Verify user can create a task and appears on Board', async ({projectBoardPage, addTaskPage  }) => {
     
-    await projectBoardPage.clickAddTask();  
+    await projectBoardPage.addTaskButton.click();  
     // Fill all task fields, submit, and verify the task appears on the Board view.
     await addTaskPage.createTask();
     await expect(projectBoardPage.createdTask).toBeVisible();

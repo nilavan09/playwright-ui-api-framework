@@ -3,9 +3,9 @@ import {Locator , Page} from "@playwright/test";
 
 export class WorkspacePage  {
     
-    readonly workspaceToogleButton :Locator
-    readonly settingsButton :Locator
-    readonly peopleButton :Locator
+    readonly workspaceToogleButton :Locator;
+    readonly settingsButton :Locator;
+    readonly peopleButton :Locator;
     
     
     constructor(page: Page) {
@@ -17,17 +17,13 @@ export class WorkspacePage  {
     
     }
 
-    async openWorkspaceMenu() {
-        await this.workspaceToogleButton.click();
-    }
-
     async openSettings() {
-        await this.openWorkspaceMenu();
+        await this.workspaceToogleButton.click();
         await this.settingsButton.nth(4).click();
     }
 
     async openPeople() {
-        await this.openWorkspaceMenu();
+        await this.workspaceToogleButton.click();
         await this.peopleButton.nth(1).click();
     }
 

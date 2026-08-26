@@ -50,8 +50,8 @@ export class TaskDetailsPage  {
         this.assigneeButton = page.locator('[data-test^="avatar-group__user-icon"]').last();
         this.dueDateButton = page.locator('[data-test="task-dates-display-button"]');
         this.priorityButton = page.locator('[data-test="task-hero-section-priority__row-data"]');
-        this.priorityDropdown = new PriorityDropdown(page,this.priorityButton);
-        this.dueDateDropdown = new DueDatePicker(page, this.dueDateButton);
+        this.priorityDropdown = new PriorityDropdown(this.priorityButton);
+        this.dueDateDropdown = new DueDatePicker(this.dueDateButton);
         // Targets the first block in the rich text description editor
         this.descriptionInput = page.locator('[data-test="task-editor"] .ql-editor');
         this.activitySection = page.locator('[data-link-preview-list-container="task-activity-stream"]');
@@ -104,16 +104,6 @@ export class TaskDetailsPage  {
         await this.descriptionInput.press('Control+A');
         await this.descriptionInput.fill(taskData.taskDescriptionEdited);
     }
-
-    // //Edits the task priority using the shared PriorityDropdown component.
-    // async editPriority(){
-    //     await this.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
-    // }
-
-    // //Selects the due date using the shared DueDatePicker component
-    // async selectDuedate(){
-    //     await this.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
-    // }
 
     /**
     * Edits the task assignee by removing the current assignee

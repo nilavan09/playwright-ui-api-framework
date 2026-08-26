@@ -23,7 +23,7 @@ test.describe("Task Details", () => {
  */
 test.beforeEach(async ({ page, projectBoardPage }) => {
     await page.goto("/");
-    await projectBoardPage.openBoardView();
+    await projectBoardPage.boardView.click();
     // Open the previously created task from the Board view(TC_010).
     await projectBoardPage.openCreatedTask();
 });
@@ -82,7 +82,7 @@ test('TC_014_verify user can edit task priority', async ({ taskDetailsPage }) =>
     // Edit the existing task priority.
     await taskDetailsPage.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
     // Verify updated priority.
-    await taskDetailsPage.priorityDropdown.verifyPriority(taskData.priorityOptions[1]);
+    await expect(taskDetailsPage.priorityButton).toHaveText(taskData.priorityOptions[1]);
     
 
 });
@@ -92,7 +92,7 @@ test('TC_015_verify user can edit task duedate', async ({ taskDetailsPage }) => 
     // Edit the existing task duedate.
     await taskDetailsPage.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
     // Verify updated duedate.
-    await taskDetailsPage.dueDateDropdown.verifyDate(taskData.dueDateOptions[0].label);
+    await expect(taskDetailsPage.dueDateButton).toHaveText(taskData.dueDateOptions[0].label);
     
     
 
@@ -145,7 +145,7 @@ test("TC_019_Verify user can delete task",
     async ({ page, projectBoardPage }) => {
 
         await page.goto("/");
-        await projectBoardPage.openBoardView();
+        await projectBoardPage.boardView.click();
          // Delete the task from the Board view.
         await projectBoardPage.deleteTask();
         // Verify the task no longer appears on the Board.
