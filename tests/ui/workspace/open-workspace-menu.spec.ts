@@ -2,15 +2,10 @@ import { test, expect } from "@playwright/test";
 import { WorkspacePage } from "@pages/workspace/WorkspacePage";
 
 test("Open workspace menu", async ({ page }) => {
-
-    await page.goto("/");
-
     const workspace = new WorkspacePage(page);
-
-    //await workspace.openWorkspaceMenu();
-
-    //await expect(workspace.settingsButton).toBeVisible();
-
+    await page.goto("/");
     await workspace.openSettings();
+    await expect(page).toHaveURL(/.*settings/);
     await workspace.openPeople();
+    await expect(page).toHaveURL(/.*users/);
 });

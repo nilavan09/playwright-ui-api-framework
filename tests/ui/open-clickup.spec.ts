@@ -6,13 +6,9 @@ test('check authentication', async ({ page }) => {
     await page.goto('/');
 
     await expect(
-        page.getByText("Pozhilnilavan G's Workspace")
+        page.getByText("Pozhilnilavan G's Workspace").first()
     ).toBeVisible();
 
-    await page.getByRole('button',{name:'More'}).click();
-    // console.log(await page.url());
-
-    // await page.waitForTimeout(5000);
 
 });
 

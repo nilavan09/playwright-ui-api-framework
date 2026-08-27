@@ -116,7 +116,13 @@ test('TC_017_verify user can edit task status', async ({ taskDetailsPage }) => {
 
 });
 
-test('TC_018_verify user can close task detials', {annotation: {type: "skipCleanup",description: "Close task is being tested"}},async ({ taskDetailsPage }) => {
+});
+
+test('TC_018_verify user can close task detials',async ({ taskDetailsPage, page, projectBoardPage }) => {
+        // Verify the task details panel can be closed and the user is returned to the Board view.
+        await page.goto("/");
+        await projectBoardPage.boardView.click();
+        await projectBoardPage.openCreatedTask();
 
         // close the existing task.
         await taskDetailsPage.closeButton.click();
@@ -125,9 +131,6 @@ test('TC_018_verify user can close task detials', {annotation: {type: "skipClean
         await expect(taskDetailsPage.taskTitle).not.toBeVisible();
     }
 );
-
-}
-);
 /**
  * TC_019_Verify user can delete task
  * 
@@ -135,15 +138,8 @@ test('TC_018_verify user can close task detials', {annotation: {type: "skipClean
  * deletes the task rather than editing/closing it. Uses "skipCleanup"
  * to avoid the shared afterEach logic acting on an already-deleted task.
  */
-test("TC_019_Verify user can delete task",
-    {
-        annotation: {
-            type: "skipCleanup",
-            description: "Task is being deleted"
-        }
-    },
-    async ({ page, projectBoardPage }) => {
-
+test("TC_019_Verify user can delete task",async ({ page, projectBoardPage }) => {
+        // Verify the task can be deleted from the Board view and no longer appears in the list of tasks.
         await page.goto("/");
         await projectBoardPage.boardView.click();
          // Delete the task from the Board view.

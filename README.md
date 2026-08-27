@@ -1,61 +1,95 @@
 # 🎭 Playwright UI & API Automation Framework
 
-An enterprise-grade UI & API automation framework built using Playwright and TypeScript.
-
----
+A UI and API automation framework built with **Playwright** and **TypeScript**.
 
 ## 🚀 Tech Stack
 
-- Playwright
-- TypeScript
-- Node.js
-- Git & GitHub
+* Playwright
+* TypeScript
+* Node.js
+* Git & GitHub
 
----
+## 📂 Project Structure
 
-## 📂 Project Status
+```text
+├── auth/                 # Authentication storage
+├── components/           # Reusable UI components
+├── config/               # Configuration
+├── docs/                 # Test documentation
+├── fixtures/             # Playwright fixtures
+├── pages/                # Page Object Models
+├── test-data/            # Test data
+├── tests/                # Test specifications
+├── utils/                # Utility functions
+├── .env                  # Environment variables
+├── playwright.config.ts  # Playwright configuration
+├── package.json          # Project dependencies and scripts
+└── tsconfig.json         # TypeScript configuration
+```
 
-🚧 Under Development
+## ✅ Current Features
 
-This project is being built from scratch following enterprise automation framework best practices.
+* UI automation with Playwright
+* TypeScript support
+* Page Object Model (POM)
+* Reusable UI components
+* Custom Playwright fixtures
+* Centralized test data
+* Authentication state management
+* Multi-browser testing
+* HTML test reporting
+* Environment variable management
 
----
+## 🧪 Test Coverage
 
-## 📌 Planned Features
+Current automated tests cover areas such as:
 
-- UI Automation
-- API Automation
-- Page Object Model (POM)
-- Reusable Components
-- Fixtures
-- Test Data Management
-- Reporting
-- CI/CD Integration
-- Logging
-- Performance Testing
+* Authentication
+* Project Board
+* Task creation
+* Task details
+* Task editing
+* Task deletion
+* Workspace navigation
 
----
+## ▶️ Running Tests
 
-## 📖 Learning Goal  ..
+Install dependencies:
 
-Build a scalable enterprise automation framework while documenting every step of the development process.
+```bash
+npm install
+```
 
+Run all tests:
 
+```bash
+npm test
+```
 
+Run tests in headed mode:
 
+```bash
+npm run test:headed
+```
 
+Open Playwright UI mode:
 
-# Playwright Enterprise Framework
+```bash
+npm run test:ui
+```
 
-Enterprise-grade UI & API Automation Framework built with Playwright and TypeScript.
+View the HTML report:
 
-## Features
+```bash
+npm run report
+```
 
-- UI Automation
-- API Automation
-- Page Object Model
-- Fixtures
-- Components
-- Reporting
-- CI/CD
-- Enterprise Folder Structure
+## 📌 Project Status
+
+🚧 **Under Development**
+
+The framework is being developed incrementally with a focus on clean Playwright architecture, maintainability, reusable components, and reliable test automation.
+
+## 🎯 Learning Goal
+
+Build a maintainable Playwright automation framework while continuously improving its architecture, test coverage, and automation practices.
