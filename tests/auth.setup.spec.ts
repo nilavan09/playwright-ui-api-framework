@@ -38,11 +38,7 @@ setup('authenticate clickup user', async ({ page }) => {
 
     await page.goto(process.env.BASE_URL + '/login');
 
-    await loginPage.emailInput.fill(loginData.validUser.email);
-
-    await loginPage.passwordInput.fill(loginData.validUser.password);
-
-    await loginPage.loginButton.click();
+    await loginPage.submitlogin(loginData.validUser.email, loginData.validUser.password);
 
 
     // Wait until login is completed

@@ -10,7 +10,14 @@ export class LoginPage {
         this.passwordInput = page.locator('[data-test="form__password-input"]');
         this.loginButton = page.locator('[data-test="login-submit"]');
     }
-}
+
+    async submitlogin(username: string, password: string) {
+        await this.emailInput.fill(username);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
+    }
+};
+
 
 
 
