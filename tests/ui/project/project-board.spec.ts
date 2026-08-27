@@ -113,6 +113,6 @@ test('TC_010_Verify user can create a task and appears on Board', async ({projec
     await projectBoardPage.addTaskButton.click();  
     // Fill all task fields, submit, and verify the task appears on the Board view.
     await addTaskPage.createTask();
-    await expect(projectBoardPage.createdTask).toBeVisible();
+    await expect(projectBoardPage.getTaskByName(taskData.taskName)).toBeVisible();
 
 });
