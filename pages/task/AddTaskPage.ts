@@ -45,7 +45,7 @@ export class AddTaskPage {
         this.priorityDropdown = new PriorityDropdown(this.priorityButton);
         this.dueDateDropdown = new DueDatePicker(this.dueDateButton)
         this.assigeeSelector = page.locator('[data-pendo="quick-create-task-draft-assignee"]');
-        this.assigneeOption = page.locator('[class="user-list-item__icon"]').last();
+        this.assigneeOption = page.locator('.user-list-item').last();
         this.createTaskButton = page.locator('[data-test="draft-view__quick-create-create"]');
     }
 

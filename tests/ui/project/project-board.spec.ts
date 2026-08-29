@@ -25,7 +25,7 @@ test.beforeEach(async ({ page,projectBoardPage }) => {
 // Project Board - Page Load & UI Verification
 
 
-test('TC_001_Verify Project Board page loads successfully',async ({projectBoardPage})=>{
+test('TC_003_Verify Project Board page loads successfully',async ({projectBoardPage})=>{
     // Verify project title and default status columns (To Do / In Progress / Complete) render correctly.
     await expect(projectBoardPage.projectName).toBeVisible();
     await expect(projectBoardPage.todoColumn).toBeVisible();
@@ -34,7 +34,7 @@ test('TC_001_Verify Project Board page loads successfully',async ({projectBoardP
     
 })
 
-test('TC_002_Verify Project Board toolbar is displayed',async ({projectBoardPage})=>{
+test('TC_004_Verify Project Board toolbar is displayed',async ({projectBoardPage})=>{
     // Verify Sort, Filter, Assignee, Task Filter, Search, and Customize options are visible.
     await expect(projectBoardPage.sortButton).toBeVisible();
     await expect(projectBoardPage.filterButton).toBeVisible();
@@ -44,7 +44,7 @@ test('TC_002_Verify Project Board toolbar is displayed',async ({projectBoardPage
     await expect(projectBoardPage.customizeButton).toBeVisible();
 })
 
-test('TC_003_Verify "Create Task" button is displayed',async ({projectBoardPage})=>{
+test('TC_005_Verify "Create Task" button is displayed',async ({projectBoardPage})=>{
     // Verify Create Task button is visible and enabled.
     await expect(projectBoardPage.addTaskButton).toBeVisible();
     await expect(projectBoardPage.addTaskButton).toBeEnabled();
@@ -52,7 +52,7 @@ test('TC_003_Verify "Create Task" button is displayed',async ({projectBoardPage}
 
 // Add Task Dialog - Field Level Verification
 
-test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async ({projectBoardPage,addTaskPage})=>{
+test('TC_006_Verify clicking "Create Task" button opens Add Task dialog',async ({projectBoardPage,addTaskPage})=>{
     // Verify all required fields/buttons are present in the Add Task dialog.
     await projectBoardPage.addTaskButton.click();
     await expect(addTaskPage.taskNameInput).toBeVisible();
@@ -66,14 +66,14 @@ test('TC_004_Verify clicking "Create Task" button opens Add Task dialog',async (
     
 });
 
-test('TC_005_Verify user can enter task name', async ({ projectBoardPage,addTaskPage }) => {
+test('TC_007_Verify user can enter task name', async ({ projectBoardPage,addTaskPage }) => {
     await projectBoardPage.addTaskButton.click();
     // Enter task name and verify it reflects correctly in the input field.
     await addTaskPage.taskNameInput.fill(taskData.taskName);
     await expect(addTaskPage.taskNameInput).toHaveValue(taskData.taskName);
 });
 
-test('TC_006_Verify user can enter task description', async ({ projectBoardPage,addTaskPage }) => {
+test('TC_008_Verify user can enter task description', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.addTaskButton.click();
     // Enter task description using centralized test data and verify it's saved correctly.
@@ -82,7 +82,7 @@ test('TC_006_Verify user can enter task description', async ({ projectBoardPage,
     await expect(addTaskPage.descriptionPlaceholder).toHaveText(taskData.taskDescription);
 });
 
-test('TC_007_Verify user can enter select Priority', async ({ projectBoardPage,addTaskPage }) => {
+test('TC_009_Verify user can enter select Priority', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.addTaskButton.click();
     // Select "Normal" priority from dropdown and verify selection is reflected.
@@ -90,7 +90,7 @@ test('TC_007_Verify user can enter select Priority', async ({ projectBoardPage,a
     await expect(addTaskPage.priorityButton).toContainText(taskData.priorityOptions[0]);
 });
 
-test('TC_008_Verify user can select Due Date', async ({ projectBoardPage,addTaskPage }) => {
+test('TC_010_Verify user can select Due Date', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.addTaskButton.click();
     // Select "Tomorrow" as due date and verify it's applied.
@@ -98,7 +98,7 @@ test('TC_008_Verify user can select Due Date', async ({ projectBoardPage,addTask
     await expect(addTaskPage.dueDateButton).toHaveText(taskData.dueDateOptions[1].label);
 });
 
-test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTaskPage }) => {
+test('TC_011_Verify user can select Assignee', async ({ projectBoardPage,addTaskPage }) => {
 
     await projectBoardPage.addTaskButton.click();
     // Select assignee from dropdown and verify correct user initial is displayed.
@@ -108,11 +108,15 @@ test('TC_009_Verify user can select Assignee', async ({ projectBoardPage,addTask
 
 // End-to-End Task Creation
 
-test('TC_010_Verify user can create a task and appears on Board', async ({projectBoardPage, addTaskPage  }) => {
+test('TC_012_Verify user can create a task, verify it appears on Board, and delete it', async ({projectBoardPage, addTaskPage  }) => {
     
     await projectBoardPage.addTaskButton.click();  
     // Fill all task fields, submit, and verify the task appears on the Board view.
     await addTaskPage.createTask();
     await expect(projectBoardPage.getTaskByName(taskData.taskName)).toBeVisible();
+    //Delete the created task from the Board.
+    await projectBoardPage.deleteTask();
+    // Verify the task is no longer displayed on the Board.
+    await expect(projectBoardPage.getTaskByName(taskData.taskName)).not.toBeVisible();
 
 });

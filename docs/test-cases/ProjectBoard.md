@@ -2,32 +2,84 @@
 
 ### Test Cases
 
-TC_001_Verify Project Board page loads successfully.
+TC_001_Verify user can open ClickUp successfully.
 
-Expected:
+Precondition
+
+- User has valid login credentials.
+
+Steps
+
+- Open ClickUp.
+
+Expected Result
+
+- ClickUp opens successfully.
+- User's workspace is displayed.
+
+TC_002_Verify user can open the workspace menu.
+
+Precondition
+
+- User is logged in.
+- ClickUp is open.
+
+Steps
+
+- Open the workspace settings/menu.
+- Open the People option.
+
+Expected Result
+
+- Workspace settings page opens.
+- People/Users page opens successfully.
+- The URL contains "/users".
+
+TC_003_Verify Project Board page loads successfully.
+
+Precondition
+
+- User is logged in.
+
+Steps
+
+- Navigate to the Project Board.
+- Open the Board view.
+
+Expected Result
+
 - Project name is displayed.
-- Board view is selected.
-- All 3 todo , inprogress and complete column is displayed.
+- To Do, In Progress, and Complete columns are displayed.
 
-TC_002_Verify Project Board toolbar is displayed.
+TC_004_Verify Project Board toolbar is displayed.
 
-Expected:
-- sort button is displayed.
-- filter button is displayed.
-- assignee button is displayed.
-- taskfilter button is displayed.
-- searchbutton is displayed.
-- customizebutton is displayed.
-- add task button is displayed.
+Precondition
 
-TC_003_Verify "Create Task" button is displayed
+- User is logged in.
+- Project Board page is open.
 
-Expected:
+Expected Result
 
-Create Task button is visible.
-Button is enabled.
+- Sort button is displayed.
+- Filter button is displayed.
+- Assignee button is displayed.
+- Task Filter button is displayed.
+- Search button is displayed.
+- Customize button is displayed.
 
-TC_004 - Verify Create Task dialog opens successfully
+TC_005_Verify "Create Task" button is displayed.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Expected Result
+
+- Create Task button is visible.
+- Create Task button is enabled.
+
+TC_006_Verify clicking "Create Task" button opens Add Task dialog.
 
 Precondition
 
@@ -36,162 +88,144 @@ Precondition
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
 - Click Create Task.
 
 Expected Result
 
-- Create Task dialog/page opens.
+- Add Task dialog opens.
 - Task Name field is visible.
-- Save/Create button is visible.
+- Description field is visible.
+- Assignee control is visible.
+- Due Date control is visible.
+- Priority control is visible.
+- Tags control is visible.
+- Create Task button is visible.
+- Close button is visible.
 
-
-TC_005_Verify user can enter task name
+TC_007_Verify user can enter task name.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
+- Add Task dialog is open.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Click Create Task.
+- Enter "TC_010_Playwright Demo Task" in the task name field.
 
 Expected Result
 
-- Input field should accepct vaule and display.
+- Task name field displays "TC_010_Playwright Demo Task".
 
-TC_006_Verify user can enter a task description.
+TC_008_Verify user can enter a task description.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
+- Add Task dialog is open.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Click Create Task.
+- Enter "This is a demo task description for TC_010" in the description field.
 
 Expected Result
 
-- description field should accepct vaule and display.
+- Description field displays "This is a demo task description for TC_010".
 
-TC_007_Verify user can enter select Priority
+TC_009_Verify user can select Normal priority.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
+- Add Task dialog is open.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Click Create Task.
-- Click on priority dropdown.
-- Select normal priority.
+- Open the priority dropdown.
+- Select Normal priority.
 
 Expected Result
 
-- Priority dropdown is opened.
-- prioriity selected.
-- Priority dropdown is displayed selected one.
+- Priority control displays "Normal".
 
-TC_008_Verify user can select Due Date
+TC_010_Verify user can select Due Date.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
+- Add Task dialog is open.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Click Create Task.
-- Click on due date picker.
-- Select "Tomorrow" as due date.
+- Open the due date picker.
+- Select "Tomorrow" as the due date.
 
 Expected Result
 
-- Due date picker is opened.
-- Due date selected.
-- Due date field displays "Tomorrow".
+- Due date control displays "Tomorrow".
 
-TC_009_Verify user can select Assignee
+TC_011_Verify user can select Assignee.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
+- Add Task dialog is open.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Click Create Task.
-- Click on assignee selector.
-- Select an assignee from the list.
+- Open the assignee selector.
+- Select the available assignee.
 
 Expected Result
 
-- Assignee selector is opened.
-- Assignee selected.
-- Assignee field displays selected user's initial "R".
+- Assignee control displays the selected user's initial "R".
 
-TC_010_Verify user can create a task and appears on Board
+TC_012_Verify user can create a task, verify it appears on Board, and delete it.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- opened task dialog
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
 - Click Create Task.
-- Enter task name.
-- Enter task description.
-- Select priority.
-- Select due date.
-- Select assignee.
+- Enter task name "TC_010_Playwright Demo Task".
+- Enter task description "This is a demo task description for TC_010".
+- Select Normal priority.
+- Select "Tomorrow" as the due date.
+- Select the assignee displaying initial "R".
 - Click Create Task button.
+- Verify the task appears on the Board.
+- Hover over the created task.
+- Open the More actions menu.
+- Click Delete.
 
 Expected Result
 
-- Task name is entered correctly.
-- Task description is entered correctly.
-- Priority, due date, and assignee are selected correctly.
 - Task is created successfully.
 - Created task appears on the Board view.
+- Deleted task no longer appears on the Board view.
 
-TC_011_Verify Task Details page opens
+TC_013_Verify Task Details page opens.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- A task has been created using the task details test setup.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
 - Open the created task from the Board view.
 - Verify the task title.
 - Verify the task status.
+- Verify the task assignee.
 - Verify the task priority.
 - Verify the task due date.
 - Verify the task description.
@@ -200,184 +234,156 @@ Steps
 Expected Result
 
 - Task Details page opens successfully.
-- Task title matches the expected task name.
-- Task status is displayed correctly.
-- Task priority is displayed correctly.
-- Task due date is displayed correctly.
-- Task description matches the expected content.
-- Activity/history section is visible on the page.
+- Task title is "TC_010_Playwright Demo Task".
+- Task status is displayed as "to do".
+- Task assignee is displayed as "R".
+- Task priority is displayed as "Normal".
+- Task due date is displayed as "Tomorrow".
+- Task description is displayed as "This is a demo task description for TC_010".
+- Activity/history section is visible.
 
-TC_012_Verify user can edit task description.
+TC_014_Verify user can edit task title.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the created task from the Board view.
-- Edit the task title.
+- Edit the task title to "TC_010_Playwright Demo Task Edited".
 
 Expected Result
 
 - Task title is updated successfully.
-- Updated task title is displayed correctly on the Task Details page.
+- Updated task title is displayed on the Task Details page.
 
-TC_013_Verify user can edit task description
+TC_015_Verify user can edit task description.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the created task from the Board view.
-- Edit the task description.
+- Edit the task description to "This is a demo task description for TC_010 edited".
 
 Expected Result
 
 - Task description is updated successfully.
-- Updated task description is displayed correctly on the Task Details page.
+- Updated task description is displayed on the Task Details page.
 
-TC_014_Verify user can edit task priority
+TC_016_Verify user can edit task priority.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the created task from the Board view.
-- Click on the priority dropdown.
+- Open the priority dropdown.
 - Select "Low" priority.
 
 Expected Result
 
-- Priority dropdown is opened.
 - Priority is updated to "Low".
-- Updated priority is displayed correctly on the Task Details page.
+- Updated priority is displayed on the Task Details page.
 
-TC_015_Verify user can edit task due date
+TC_017_Verify user can edit task due date.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the created task from the Board view.
-- Click on the due date field.
-- Select a new due date.
+- Open the due date picker.
+- Select "Today" as the due date.
 
 Expected Result
 
-- Due date picker is opened.
-- Due date is updated successfully.
-- Updated due date is displayed correctly on the Task Details page.
+- Due date is updated to "Today".
+- Updated due date is displayed on the Task Details page.
 
-TC_016_Verify user can edit task assignee
+TC_018_Verify user can edit task assignee.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the created task from the Board view.
-- Hover over the assignee field.
+- Hover over the current assignee.
 - Remove the current assignee.
-- Click on the assignee dropdown.
-- Select a new assignee from the list.
+- Open the assignee dropdown.
+- Select "Me" as the new assignee.
 
 Expected Result
 
 - Current assignee is removed successfully.
-- Assignee dropdown opens correctly.
 - New assignee is selected successfully.
-- Updated assignee is displayed correctly on the Task Details page.
+- Updated assignee is displayed as "PG" on the Task Details page.
 
-TC_017_verify user can edit task status
-
-Precondition
-
-- User is logged in.
-- Project Board page is open.
-- A task has already been created (TC_010).
-
-Steps
-
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the previously created task from the Board view.
-- Edit the existing task's status.
-- Verify the updated task status.
-
-Expected Result
-
-- The created task opens successfully.
-- Task status can be edited successfully.
-- The selected task status is updated successfully.
-- Updated task status is displayed correctly on the Task Details page.
-
-
-TC_018_verify user can close task details
+TC_019_Verify user can edit task status.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- Task Details page is open for the task created in the setup test.
 
 Steps
 
-- Navigate to the Project Board.
-- Open the Board view.
-- Open the previously created task from the Board view.
-- Close the task details.
-- Verify that the task details are closed.
+- Open the task status control.
+- Select "In Progress".
 
 Expected Result
 
-- The created task opens successfully.
-- Task Details can be closed successfully.
+- Task status is updated successfully.
+- Updated task status is displayed as "in progress" on the Task Details page.
+
+TC_020_Verify user can close Task Details.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- Task Details page is open for the task created in the setup test.
+
+Steps
+
+- Click the Task Details close button.
+
+Expected Result
+
 - Task Details page is closed.
+- Task title is no longer visible.
 
-TC_019_Verify user can delete task.
+TC_021_Verify user can delete edited task.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- A task has already been created (TC_010).
+- The task has been created and edited by TC_011 through TC_018.
 
 Steps
 
 - Navigate to the Project Board.
-- Hover over on the created task. 
-- click on the menu icon.
-- click on delete button. 
-- Verify that the task deleted from the board.
+- Hover over the edited task.
+- Open the More actions menu.
+- Click Delete.
 
 Expected Result
 
-- The created task deleted successfully.
+- The edited task is deleted successfully.
+- The task no longer appears on the Board.

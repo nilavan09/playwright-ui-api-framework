@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { WorkspacePage } from "@pages/workspace/WorkspacePage";
 
-test("Open workspace menu", async ({ page }) => {
+test("TC_002_Verify user can open the workspace menu", async ({ page }) => {
     const workspace = new WorkspacePage(page);
     await page.goto("/");
     await workspace.openSettings();
