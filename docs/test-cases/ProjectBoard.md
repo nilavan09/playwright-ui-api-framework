@@ -212,7 +212,30 @@ Expected Result
 - Created task appears on the Board view.
 - Deleted task no longer appears on the Board view.
 
-TC_013_Verify Task Details page opens.
+TC_013_Verify task can move from To Do to In Progress and Complete.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Steps
+
+- Create a task named with the status-workflow data set.
+- Confirm it appears in the To Do column.
+- Drag the task to the In Progress column.
+- Confirm it appears in the In Progress column.
+- Mark the task as complete.
+- Confirm it appears in the Complete column.
+- Delete the completed task.
+
+Expected Result
+
+- The task moves successfully across the board columns.
+- The task is visible in each expected status bucket at the correct stage.
+- The task is removed from the board after cleanup.
+
+TC_014_Verify Task Details page opens.
 
 Precondition
 
@@ -242,7 +265,7 @@ Expected Result
 - Task description is displayed as "This is a demo task description for TC_010".
 - Activity/history section is visible.
 
-TC_014_Verify user can edit task title.
+TC_015_Verify user can edit task title.
 
 Precondition
 
@@ -259,7 +282,7 @@ Expected Result
 - Task title is updated successfully.
 - Updated task title is displayed on the Task Details page.
 
-TC_015_Verify user can edit task description.
+TC_016_Verify user can edit task description.
 
 Precondition
 
@@ -276,7 +299,7 @@ Expected Result
 - Task description is updated successfully.
 - Updated task description is displayed on the Task Details page.
 
-TC_016_Verify user can edit task priority.
+TC_017_Verify user can edit task priority.
 
 Precondition
 
@@ -294,7 +317,7 @@ Expected Result
 - Priority is updated to "Low".
 - Updated priority is displayed on the Task Details page.
 
-TC_017_Verify user can edit task due date.
+TC_018_Verify user can edit task due date.
 
 Precondition
 
@@ -312,7 +335,7 @@ Expected Result
 - Due date is updated to "Today".
 - Updated due date is displayed on the Task Details page.
 
-TC_018_Verify user can edit task assignee.
+TC_019_Verify user can edit task assignee.
 
 Precondition
 
@@ -333,7 +356,7 @@ Expected Result
 - New assignee is selected successfully.
 - Updated assignee is displayed as "PG" on the Task Details page.
 
-TC_019_Verify user can edit task status.
+TC_020_Verify user can edit task status.
 
 Precondition
 
@@ -351,7 +374,7 @@ Expected Result
 - Task status is updated successfully.
 - Updated task status is displayed as "in progress" on the Task Details page.
 
-TC_020_Verify user can close Task Details.
+TC_021_Verify user can close Task Details.
 
 Precondition
 
@@ -368,13 +391,13 @@ Expected Result
 - Task Details page is closed.
 - Task title is no longer visible.
 
-TC_021_Verify user can delete edited task.
+TC_022_Verify user can delete edited task.
 
 Precondition
 
 - User is logged in.
 - Project Board page is open.
-- The task has been created and edited by TC_011 through TC_018.
+- The task has been created and edited by TC_014 through TC_021.
 
 Steps
 
@@ -387,3 +410,95 @@ Expected Result
 
 - The edited task is deleted successfully.
 - The task no longer appears on the Board.
+
+TC_023_Verify empty task name validation keeps the dialog open.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+- Add Task dialog is open.
+
+Steps
+
+- Click Create Task without entering a task name.
+- Click Create Task again.
+
+Expected Result
+
+- The Add Task dialog remains open.
+- The task name field is still visible and empty.
+- The validation message "Enter Task Name" is displayed.
+
+TC_024_Verify long task names are accepted in the Add Task dialog.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Steps
+
+- Open the Add Task dialog.
+- Enter a long task name value.
+
+Expected Result
+
+- The task name field accepts the full value without truncation or validation failure.
+- The dialog remains usable.
+
+TC_025_Verify special characters are accepted in the task name field.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Steps
+
+- Open the Add Task dialog.
+- Enter a task name containing special characters.
+
+Expected Result
+
+- The task name field displays the entered special characters exactly as typed.
+- The dialog remains stable and does not reject the input.
+
+TC_026_Verify cancelling a draft removes the unsaved task after confirmation.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Steps
+
+- Open the Add Task dialog.
+- Enter task details without creating the task.
+- Close the dialog.
+- Confirm the delete draft action.
+
+Expected Result
+
+- The draft is removed.
+- The Add Task dialog closes cleanly.
+- The unsaved task is not visible on the Board.
+
+TC_027_Verify canceling the save-draft prompt keeps the task draft available.
+
+Precondition
+
+- User is logged in.
+- Project Board page is open.
+
+Steps
+
+- Open the Add Task dialog.
+- Fill in the task fields.
+- Close the dialog.
+- Cancel the save-draft prompt instead of deleting the draft.
+
+Expected Result
+
+- The draft is preserved and the dialog reopens with the saved values.
+- The user can continue editing the task without losing the entered data.

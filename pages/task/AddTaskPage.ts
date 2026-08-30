@@ -17,6 +17,9 @@ export class AddTaskPage {
     readonly dueDateButton: Locator;
     readonly tagsButton: Locator;
     readonly closeButton: Locator;
+    readonly taskNameRequiredError: Locator;
+    readonly deleteDraftButton: Locator;
+    readonly cancelDraftButton: Locator;
     readonly descriptionPlaceholder: Locator;
     readonly dueDateDropdown: DueDatePicker;
     readonly assigeeSelector: Locator;
@@ -41,6 +44,9 @@ export class AddTaskPage {
         this.priorityButton = page.locator('cu-modal-keeper').locator('[data-test="priorities-list__dropdown"]').last();
         this.tagsButton = page.locator('[data-test="dropdown__toggle"]');
         this.closeButton = page.locator('[data-test="modal-close-btn"]');
+        this.taskNameRequiredError = page.getByText('Enter Task Name', { exact: true });
+        this.deleteDraftButton = page.getByRole('button', { name: 'Delete draft' });
+        this.cancelDraftButton = page.getByRole('button', { name: 'Cancel', exact: true });
         this.descriptionPlaceholder = page.locator('.ql-block');
         this.priorityDropdown = new PriorityDropdown(this.priorityButton);
         this.dueDateDropdown = new DueDatePicker(this.dueDateButton)
@@ -61,10 +67,10 @@ export class AddTaskPage {
     * Creates a task using the centralized test data.
     * Fills the required fields and submits the task.
     */
-    async createTask() {
+    async createTask(submit = true, taskName = taskData.taskName) {
         //Fill all required fields using centralized test data and submit the task.
         //fill task name
-        await this.taskNameInput.fill(taskData.taskName);
+        await this.taskNameInput.fill(taskName);
         //fill task description
         await this.descriptionInput.click();
         await this.descriptionPlaceholder.fill(taskData.taskDescription);
@@ -74,8 +80,10 @@ export class AddTaskPage {
         await this.dueDateDropdown.selectDate(taskData.dueDateOptions[1].value);
         //select assignee
         await this.selectAssignee();
-        //Click the "Create Task" button to submit the new task.
-        await this.createTaskButton.click();
+        if (submit) {
+            //Click the "Create Task" button to submit the new task.
+            await this.createTaskButton.click();
+        }
     }
 
 }   

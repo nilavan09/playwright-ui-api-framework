@@ -47,7 +47,7 @@ test.describe.serial("Task Details", () => {
 
     test.afterEach(async ({ taskDetailsPage }, testInfo) => {
 
-        // TC_018 closes the task itself, so no cleanup is required.
+        // TC_021 closes the task itself, so no cleanup is required.
         if (
             testInfo.title !== "Setup - Create task for Task Details tests" &&
             testInfo.title !== "TC_020_verify user can close task detials"
@@ -56,7 +56,7 @@ test.describe.serial("Task Details", () => {
         }
     });
 
-    test("TC_013_Verify Task Details page opens", async ({ taskDetailsPage }) => {
+    test("TC_014_Verify Task Details page opens", async ({ taskDetailsPage }) => {
 
         //verify task opens and showing detials.
         //Verify the task title matches the expected task name.
@@ -75,7 +75,7 @@ test.describe.serial("Task Details", () => {
         await expect(taskDetailsPage.activitySection).toBeVisible();
     });
 
-    test('TC_014_verify user can edit task title', async ({ taskDetailsPage }) => {
+    test('TC_015_verify user can edit task title', async ({ taskDetailsPage }) => {
 
         // Edit the existing task.
         await taskDetailsPage.editTask();
@@ -85,7 +85,7 @@ test.describe.serial("Task Details", () => {
 
     });
 
-    test('TC_015_verify user can edit task description', async ({ taskDetailsPage }) => {
+    test('TC_016_verify user can edit task description', async ({ taskDetailsPage }) => {
 
         // Edit the existing task.
         await taskDetailsPage.editDescription();
@@ -93,7 +93,7 @@ test.describe.serial("Task Details", () => {
         await expect(taskDetailsPage.descriptionInput).toHaveText(taskData.taskDescriptionEdited);
     });
 
-    test('TC_016_verify user can edit task priority', async ({ taskDetailsPage }) => {
+    test('TC_017_verify user can edit task priority', async ({ taskDetailsPage }) => {
 
         // Edit the existing task priority.
         await taskDetailsPage.priorityDropdown.selectPriority(taskData.priorityOptions[1]);
@@ -103,7 +103,7 @@ test.describe.serial("Task Details", () => {
 
     });
 
-    test('TC_017_verify user can edit task duedate', async ({ taskDetailsPage }) => {
+    test('TC_018_verify user can edit task duedate', async ({ taskDetailsPage }) => {
 
         // Edit the existing task duedate.
         await taskDetailsPage.dueDateDropdown.selectDate(taskData.dueDateOptions[0].value);
@@ -113,7 +113,7 @@ test.describe.serial("Task Details", () => {
         
     });
 
-    test('TC_018_verify user can edit task asignee', async ({ taskDetailsPage }) => {
+    test('TC_019_verify user can edit task asignee', async ({ taskDetailsPage }) => {
 
         // Edit the existing task's assignee..
         await taskDetailsPage.editAssignee();
@@ -122,7 +122,7 @@ test.describe.serial("Task Details", () => {
 
     });
 
-    test('TC_019_verify user can edit task status', async ({ taskDetailsPage }) => {
+    test('TC_020_verify user can edit task status', async ({ taskDetailsPage }) => {
 
         // Edit the existing task's status.
         await taskDetailsPage.editStatus();
@@ -131,7 +131,7 @@ test.describe.serial("Task Details", () => {
 
     });
 
-    test('TC_020_verify user can close task detials', async ({ taskDetailsPage }) => {
+    test('TC_021_verify user can close task detials', async ({ taskDetailsPage }) => {
 
         // close the existing task.
         await taskDetailsPage.closeButton.click();
@@ -145,11 +145,11 @@ test.describe.serial("Task Details", () => {
 });
 
  /**
-    * TC_021_Verify user can delete task
+    * TC_022_Verify user can delete task
     *
      * Deletes the same task that was created by the setup test.
      */
-    test("TC_021_Verify user can delete edited task", async ({ page, projectBoardPage }) => {
+    test("TC_022_Verify user can delete edited task", async ({ page, projectBoardPage }) => {
 
         // Verify the task can be deleted from the Board view and no longer appears in the list of tasks.
         await page.goto("/");
