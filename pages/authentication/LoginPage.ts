@@ -1,3 +1,11 @@
+/**
+ * Login Page Object
+ * 
+ * Encapsulates locators and actions for the login page.
+ * Provides methods to interact with login form elements including
+ * email input, password input, and login button.
+ */
+
 import { Locator, Page } from '@playwright/test';
 
 export class LoginPage {
@@ -6,13 +14,24 @@ export class LoginPage {
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
 
-    // Constructor to initialize locators
+    /**
+     * Initializes locators for the Login page.
+     * @param page - Playwright Page instance
+     */
     constructor(page: Page) {
+        // Email input field locator.
         this.emailInput = page.locator('[data-test="form__email-input"]');
+        // Password input field locator.
         this.passwordInput = page.locator('[data-test="form__password-input"]');
+        // Login submit button locator.
         this.loginButton = page.locator('[data-test="login-submit"]');
     }
-    // Method to submit login credentials
+
+    /**
+     * Submits the login form with provided credentials.
+     * @param username - Email address to login with
+     * @param password - Password to login with
+     */
     async submitLogin(username: string, password: string) {
         await this.emailInput.fill(username);
         await this.passwordInput.fill(password);

@@ -1,3 +1,13 @@
+/**
+ * Authentication Setup Module
+ * 
+ * Handles user authentication for the ClickUp application.
+ * Logs in with valid credentials and saves the authenticated session
+ * to a storage state file for use in subsequent tests.
+ * 
+ * This setup runs once before all tests to establish a logged-in session.
+ */
+
 import { test as setup, expect } from '@playwright/test';
 import { LoginPage } from '../pages/authentication/LoginPage';
 import { loginData } from '@data/loginData';
