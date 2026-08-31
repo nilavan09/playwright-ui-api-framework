@@ -11,20 +11,20 @@ export class WorkspacePage  {
     constructor(page: Page) {
     
         this.workspaceToggleButton = page.locator('[data-test="workspace-picker-toggle__button"]');
-        this.settingsButton = page.getByText("Settings");
-        this.peopleButton = page.getByText("People");
+        this.settingsButton = page.getByRole('menuitem', { name: 'Settings' });
+        this.peopleButton = page.locator('[data-test="workspace-picker__manage-users"]');
     
     
     }
     // Opens the workspace settings menu by clicking the workspace toggle and selecting "Settings".
     async openSettings() {
         await this.workspaceToggleButton.click();
-        await this.settingsButton.nth(4).click();
+        await this.settingsButton.click();
     }
     // Opens the workspace people menu by clicking the workspace toggle and selecting "People".
     async openPeople() {
         await this.workspaceToggleButton.click();
-        await this.peopleButton.nth(1).click();
+        await this.peopleButton.click();
     }
 
 }

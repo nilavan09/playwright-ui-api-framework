@@ -68,8 +68,8 @@ export class ProjectBoardPage {
 
         // Toolbar selectors.
         this.sortButton = page.getByRole('button', { name: "Sort" });
-        this.filterButton = page.getByRole('button', { name: "Filter" }).first();
-        this.assigneeButton = page.getByRole('button', { name: "Assignee" }).nth(2);
+        this.filterButton = page.locator('[data-test="view-setting-toggle"][aria-label="Filter"]');
+        this.assigneeButton = page.locator('[data-test="view-setting-toggle"][aria-label="Assignee"]');
         this.taskFilterButton = page.locator('[data-test="me-mode-avatar-toggle"]');
         this.searchButton = page.locator('.view-filter-search__toggle');
         this.customizeButton = page.locator('[cutooltip="Customize your view settings"]');
