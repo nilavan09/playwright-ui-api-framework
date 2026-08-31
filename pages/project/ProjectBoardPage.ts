@@ -89,12 +89,6 @@ export class ProjectBoardPage {
             .filter({ has: this.page.locator(`[data-test^="board-task__card__${name}"]`) });
     }
 
-    // Resolves the actual viewport drop zone for a given status column.
-    getStatusGroup(statusColumn: Locator): Locator {
-        return statusColumn
-            .locator('xpath=ancestor::*[contains(@class, "cu-status-group")][1]')
-            .locator('div.board-group__viewport-inner');
-    }
 
     // Returns the task card inside a particular status list for column-specific verification.
     getTaskInStatusGroup(name: string, taskList: Locator): Locator {
@@ -124,7 +118,7 @@ export class ProjectBoardPage {
         await this.page.mouse.down();
         await this.page.mouse.move(
             targetBox.x + targetBox.width / 2,
-            targetBox.y + Math.min(targetBox.height / 2, 40),
+            targetBox.y + targetBox.height / 2,
             { steps: 10 }
         );
         await this.page.mouse.up();
