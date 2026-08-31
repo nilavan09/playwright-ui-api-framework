@@ -50,7 +50,7 @@ test.describe.serial("Task Details", () => {
         // TC_021 closes the task itself, so no cleanup is required.
         if (
             testInfo.title !== "Setup - Create task for Task Details tests" &&
-            testInfo.title !== "TC_020_verify user can close task detials"
+            testInfo.title !== "TC_021_verify user can close task detials"
         ) {
             await taskDetailsPage.closeButton.click();
         }

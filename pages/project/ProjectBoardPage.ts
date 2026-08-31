@@ -86,7 +86,7 @@ export class ProjectBoardPage {
     getTaskByName(name: string): Locator {
         return this.page
             .locator('[data-test^="board-group__task-list-item__"]')
-            .filter({ has: this.page.locator(`[data-test="board-task__card__${name}"]`) });
+            .filter({ has: this.page.locator(`[data-test^="board-task__card__${name}"]`) });
     }
 
     // Resolves the actual viewport drop zone for a given status column.
